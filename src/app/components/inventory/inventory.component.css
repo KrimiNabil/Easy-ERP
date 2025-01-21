@@ -1,0 +1,32 @@
+.notification-popup {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 1100; /* Higher than the modal (Bootstrap's default z-index is 1050) */
+    padding: 10px 20px;
+    border-radius: 4px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    color: #fff;
+    font-size: 14px;
+    animation: fadeInOut 2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    max-width: 300px; /* Optional for a clean layout */
+}
+
+.alert-success {
+    background-color: #28a745;
+}
+
+.alert-danger {
+    background-color: #dc3545;
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translateY(-10px); }
+    20% { opacity: 1; transform: translateY(0); }
+    80% { opacity: 1; }
+    100% { opacity: 0; transform: translateY(-10px); }
+}

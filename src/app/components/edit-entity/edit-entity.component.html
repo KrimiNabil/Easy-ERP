@@ -1,0 +1,188 @@
+<!-- Page Wrapper -->
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <form #editEntity="ngForm" (ngSubmit)="edit()">
+            <div class="card mb-0">
+
+                <!-- Edit Entity -->
+                <div class="card-body">
+                    <!-- Page Header -->
+                    <div class="page-header">
+                        <div class="content-page-header">
+                            <h5>Register Entity</h5>
+                        </div>
+                    </div>
+                    <!-- /Page Header -->
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div class="form-group-item">
+
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-field-item">
+                                                <h5 class="form-title">Company Profile</h5>
+                                                <div class="profile-picture">
+                                                    <div class="upload-profile">
+                                                        <div class="profile-img company-profile-img">
+                                                            <img id="company-img" class="img-fluid me-0"
+                                                                src=""
+                                                                alt="profile-img">
+                                                        </div>
+                                                        <div class="add-profile">
+                                                            <h5>Upload a New Photo</h5>
+                                                            <span>Profile-pic.jpg</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="img-upload">
+                                                        <label class="btn btn-upload">
+                                                            Upload <input type="file">
+                                                        </label>
+                                                        <a class="btn btn-remove">Remove</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="input-block mb-3">
+                                                <label class="form-label">Name </label>
+                                                <input type="text" class="form-control" [(ngModel)]="entity.name" name="name"
+                                                    placeholder="Enter Company Name">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="input-block mb-3">
+                                                <label class="form-label">Registration Number </label>
+                                                <input type="text" class="form-control"
+                                                [(ngModel)]="entity.registrationNumber" name="registrationNumber"
+                                                    placeholder="Enter Company Name">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="input-block mb-3">
+                                                <label class="form-label">Email Address </label>
+                                                <input type="text" class="form-control" [(ngModel)]="entity.email" name="email"
+                                                    placeholder="Enter Company Email">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="input-block mb-3">
+                                                <label class="form-label">Website </label>
+                                                <input type="text" class="form-control" [(ngModel)]="entity.website" name="website"
+                                                    placeholder="Enter Website">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="input-block mb-3">
+                                                <label class="mb-2">Phone Number</label>
+                                                <input class="form-control" type="text"
+                                                [(ngModel)]="entity.phone" name="phone" placeholder="Phone Number">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="input-block mb-3">
+                                                <label class="form-label">Industry </label>
+                                                <input type="text" class="form-control"[(ngModel)]="entity.industry" name="industry"
+                                                    placeholder="Enter Website">
+                                            </div>
+                                        </div>
+                                        <div class="billing-btn mb-2">
+                                            <h5 class="form-title">Address</h5>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="input-block mb-3">
+                                                <label>Country<span class="text-danger">*</span></label>
+                                                <input type="text" [(ngModel)]="entity.address.country" name="coun" class="form-control"
+                                                    placeholder="Enter Country">
+                                            </div>
+                                            <div class="input-block mb-3">
+                                                <label>Address <span class="text-danger">*</span></label>
+                                                <input type="text" [(ngModel)]="entity.address.street" name="street"
+                                                    class="form-control" placeholder="Enter Address ">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="input-block mb-3">
+                                                <label>City<span class="text-danger">*</span></label>
+                                                <input type="text" [(ngModel)]="entity.address.city" name="city"
+                                                    class="form-control" placeholder="Enter City">
+                                            </div>
+                                            <div class="input-block mb-3">
+                                                <label>State<span class="text-danger">*</span></label>
+                                                <input type="text" [(ngModel)]="entity.address.state" name="satte" class="form-control"
+                                                    placeholder="Enter State">
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="form-group-customer customer-additional-form">
+                                            <div class="row">
+                                                <h5 class="form-title">Bank Details</h5>
+                                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                                    <div class="input-block mb-3">
+                                                        <label>Bank Name<span class="text-danger">*</span></label>
+                                                        <input type="text" [(ngModel)]="entity.bankDetails.bankName" name="bankName"
+                                                            class="form-control" placeholder="Enter Bank Name">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                                    <div class="input-block mb-3">
+                                                        <label>Branch<span class="text-danger">*</span></label>
+                                                        <input type="text" [(ngModel)]="entity.bankDetails.branchName" name="branchName"
+                                                            class="form-control" placeholder="Enter Branch Name">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-12 col-sm-12">
+                                                    <div class="input-block mb-3">
+                                                        <label>Account Holder Name<span
+                                                                class="text-danger">*</span></label>
+                                                        <input type="text" [(ngModel)]="entity.bankDetails.accountHolderName" name="accountHolderName"
+                                                            class="form-control"
+                                                            placeholder="Enter Account Holder Name">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-12 col-sm-12">
+                                                    <div class="input-block mb-3">
+                                                        <label>Account Number<span class="text-danger">*</span></label>
+                                                        <input type="text" [(ngModel)]="entity.bankDetails.accountNumber" name="accountNumber"
+                                                            class="form-control" placeholder="Enter Account Number">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-12 col-sm-12">
+                                                    <div class="input-block mb-3">
+                                                        <label>SWIFT Code<span class="text-danger">*</span></label>
+                                                        <input type="text" [(ngModel)]="entity.bankDetails.swiftCode" name="swiftCode"
+                                                            class="form-control" placeholder="Enter SWIFT Code">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="add-customer-btns text-end">
+                                    <input type="submit" routerLink="entities_list" class="btn customer-btn-cancel"
+                                        value="Cancel">
+                                    <input type="submit" class="btn customer-btn-save" value="Edit Entity">
+                                </div>
+                                <!-- <div class="modal-footer">
+                            <button type="button" data-bs-dismiss="modal" class="btn btn-back cancel-btn me-2">Cancel</button>
+                            <button type="submit" data-bs-dismiss="modal" class="btn btn-primary paid-continue-btn">Add New</button>
+                         </div> -->
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </form>
+
+
+
+    </div>
+</div>
+<!-- /Page Wrapper -->

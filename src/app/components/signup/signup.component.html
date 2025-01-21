@@ -1,0 +1,669 @@
+<!-- Page Wrapper -->
+<div class="page-wrapper">
+	<div class="content container-fluid">
+		<form [formGroup]="addForm" (ngSubmit)="signup()">
+			<div class="card mb-0">
+				<!-- add User -->
+				<div *ngIf="path==='/signup' || path==='/signup-admin'">
+					<div class="card-body">
+						<!-- Page Header -->
+						<div class="page-header">
+							<div class="content-page-header">
+								<h5>Signup</h5>
+							</div>
+						</div>
+						<!-- /Page Header -->
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group-item">
+									<h5 class="form-title">User Details</h5>
+									<div class="profile-picture">
+										<div class="upload-profile">
+											<div class="profile-img">
+												<img id="blah" class="avatar" [src]="url" alt="profile-img">
+											</div>
+											<div class="add-profile">
+												<h5>Upload a New Photo</h5>
+												<span>Profile-pic.jpg</span>
+											</div>
+										</div>
+										<div class="img-upload">
+											<label class="btn btn-upload">
+												Upload <input type="file" class="form-control"
+													(change)="onImageSelected($event)">
+											</label>
+											<a class="btn btn-remove">Remove</a>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-lg-4 col-md-6 col-sm-12">
+											<div class="input-block mb-3">
+												<label>First Name <span class="text-danger">*</span></label>
+												<input type="text" formControlName="firstName" class="form-control"
+													placeholder="Enter Name">
+												<div
+													*ngIf="addForm.controls['firstName'].invalid && addForm.controls['firstName'].touched">
+													<div *ngIf="addForm.controls['firstName'].errors?.['required']">
+														<span style="color: red;">First name is required</span>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-4 col-md-6 col-sm-12">
+											<div class="input-block mb-3">
+												<label>Last Name <span class="text-danger">*</span></label>
+												<input type="text" formControlName="lastName" class="form-control"
+													placeholder="Enter Name">
+												<div
+													*ngIf="addForm.controls['lastName'].invalid && addForm.controls['lastName'].touched">
+													<div *ngIf="addForm.controls['lastName'].errors?.['required']">
+														<span style="color: red;">Last name is required</span>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-4 col-md-6 col-sm-12">
+											<div class="input-block mb-3">
+												<label>User Name <span class="text-danger">*</span></label>
+												<input type="text" formControlName="userName" class="form-control"
+													placeholder="Enter a User Name">
+												<div
+													*ngIf="addForm.controls['userName'].invalid && addForm.controls['userName'].touched">
+													<div *ngIf="addForm.controls['userName'].errors?.['required']">
+														<span style="color: red;">Username is required</span>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-4 col-md-6 col-sm-12">
+											<div class="input-block mb-3">
+												<label>Email <span class="text-danger">*</span></label>
+												<input type="email" formControlName="email" class="form-control"
+													placeholder="Enter Email Address">
+												<div
+													*ngIf="addForm.controls['email'].invalid && addForm.controls['email'].touched || addForm.controls['email'].dirty">
+													<div *ngIf="addForm.controls['email'].errors?.['required']">
+														<span style="color: red;">Please enter your email</span>
+													</div>
+													<div *ngIf="addForm.controls['email'].errors?.['email']">
+														<span style="color: red;">Must be a valid email</span>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-4 col-md-6 col-sm-12">
+											<div class="input-block mb-3">
+												<label>Phone <span class="text-danger">*</span></label>
+												<input type="text" formControlName="phone" class="form-control"
+													placeholder="Phone Number">
+												<div
+													*ngIf="addForm.controls['phone'].invalid && addForm.controls['phone'].touched">
+													<div *ngIf="addForm.controls['phone'].errors?.['required']">
+														<span style="color: red;">Phone number is required</span>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-4 col-md-6 col-sm-12">
+											<div class="input-block mb-3">
+												<label>Gender <span class="text-danger">*</span></label>
+												<select class="form-control" formControlName="gender">
+													<option>Select Gender</option>
+													<option value="male">Male</option>
+													<option value="female">Female</option>
+												</select>
+												<div
+													*ngIf="addForm.controls['gender'].invalid && addForm.controls['gender'].touched">
+													<div *ngIf="addForm.controls['gender'].errors?.['required']">
+														<span style="color: red;">Gender is required</span>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-4 col-md-6 col-sm-12">
+											<div class="input-block mb-3">
+												<label>Password <span class="text-danger">*</span></label>
+												<input type="password" formControlName="pwd" class="form-control"
+													placeholder="Enter Password">
+												<div
+													*ngIf="addForm.controls['pwd'].invalid && addForm.controls['pwd'].touched">
+													<div *ngIf="addForm.controls['pwd'].errors?.['required']">
+														<span style="color: red;">Password is required</span>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-4 col-md-6 col-sm-12">
+											<div class="input-block mb-3">
+												<label>Confirm Password <span class="text-danger">*</span></label>
+												<input type="password" formControlName="confirmPwd" class="form-control"
+													placeholder="Confirm Password">
+												<div
+													*ngIf="addForm.controls['confirmPwd'].invalid && addForm.controls['confirmPwd'].touched">
+													<div *ngIf="addForm.controls['confirmPwd'].errors?.['required']">
+														<span style="color: red;">Confirm password is required</span>
+													</div>
+													<div
+														*ngIf="addForm.controls['confirmPwd'].errors?.['passwordMismatch']">
+														<span style="color: red;">Passwords must match</span>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="form-group-item">
+									<div class="row align-items-end">
+										<div class="col-md-12">
+											<div class="billing-btn mb-2">
+												<h5 class="form-title">Billing Address</h5>
+											</div>
+											<div class="row">
+												<div class="col-lg-6 col-md-12">
+													<div class="input-block mb-3">
+														<label>Full Name <span class="text-danger">*</span></label>
+														<input type="text" formControlName="fullName"
+															class="form-control" placeholder="Enter Name">
+													</div>
+													<div
+														*ngIf="addForm.controls['fullName'].invalid && addForm.controls['fullName'].touched">
+														<div *ngIf="addForm.controls['fullName'].errors?.['required']">
+															<span style="color: red;">Full Name is required</span>
+														</div>
+													</div>
+													<div class="input-block mb-3">
+														<label>Address <span class="text-danger">*</span></label>
+														<input type="text" formControlName="address"
+															class="form-control" placeholder="Enter Address 1">
+													</div>
+													<div
+														*ngIf="addForm.controls['address'].invalid && addForm.controls['address'].touched">
+														<div *ngIf="addForm.controls['address'].errors?.['required']">
+															<span style="color: red;">address is required</span>
+														</div>
+													</div>
+													<div class="input-block mb-3">
+														<label>Country <span class="text-danger">*</span></label>
+														<input type="text" formControlName="country"
+															class="form-control" placeholder="Enter Country">
+													</div>
+													<div
+														*ngIf="addForm.controls['country'].invalid && addForm.controls['country'].touched">
+														<div *ngIf="addForm.controls['country'].errors?.['required']">
+															<span style="color: red;">country is required</span>
+														</div>
+													</div>
+												</div>
+												<div class="col-lg-6 col-md-12">
+													<div class="input-block mb-3">
+														<label>City <span class="text-danger">*</span></label>
+														<input type="text" formControlName="city" class="form-control"
+															placeholder="Enter City">
+													</div>
+													<div
+														*ngIf="addForm.controls['city'].invalid && addForm.controls['city'].touched">
+														<div *ngIf="addForm.controls['city'].errors?.['required']">
+															<span style="color: red;">city is required</span>
+														</div>
+													</div>
+													<div class="input-block mb-3">
+														<label>State <span class="text-danger">*</span></label>
+														<input type="text" formControlName="state" class="form-control"
+															placeholder="Enter State">
+													</div>
+													<div
+														*ngIf="addForm.controls['state'].invalid && addForm.controls['state'].touched">
+														<div *ngIf="addForm.controls['state'].errors?.['required']">
+															<span style="color: red;">state is required</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="form-group-customer customer-additional-form">
+									<div class="row">
+										<h5 class="form-title">Bank Details</h5>
+										<div class="col-lg-4 col-md-6 col-sm-12">
+											<div class="input-block mb-3">
+												<label>Bank Name <span class="text-danger">*</span></label>
+												<input type="text" formControlName="bankName" class="form-control"
+													placeholder="Enter Bank Name">
+											</div>
+											<div
+												*ngIf="addForm.controls['bankName'].invalid && addForm.controls['bankName'].touched">
+												<div *ngIf="addForm.controls['bankName'].errors?.['required']">
+													<span style="color: red;">address is required</span>
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-4 col-md-6 col-sm-12">
+											<div class="input-block mb-3">
+												<label>Branch <span class="text-danger">*</span></label>
+												<input type="text" formControlName="branchName" class="form-control"
+													placeholder="Enter Branch Name">
+											</div>
+											<div
+												*ngIf="addForm.controls['branchName'].invalid && addForm.controls['branchName'].touched">
+												<div *ngIf="addForm.controls['branchName'].errors?.['required']">
+													<span style="color: red;">branchName is required</span>
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-4 col-md-12 col-sm-12">
+											<div class="input-block mb-3">
+												<label>Account Holder Name <span class="text-danger">*</span></label>
+												<input type="text" formControlName="accountHolderName"
+													class="form-control" placeholder="Enter Account Holder Name">
+											</div>
+											<div
+												*ngIf="addForm.controls['accountHolderName'].invalid && addForm.controls['accountHolderName'].touched">
+												<div *ngIf="addForm.controls['accountHolderName'].errors?.['required']">
+													<span style="color: red;">account Holder Name is required</span>
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-4 col-md-12 col-sm-12">
+											<div class="input-block mb-3">
+												<label>Account Number <span class="text-danger">*</span></label>
+												<input type="text" formControlName="accountNumber" class="form-control"
+													placeholder="Enter Account Number">
+											</div>
+											<div
+												*ngIf="addForm.controls['accountNumber'].invalid && addForm.controls['accountNumber'].touched">
+												<div *ngIf="addForm.controls['accountNumber'].errors?.['required']">
+													<span style="color: red;">account Number is required</span>
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-4 col-md-12 col-sm-12">
+											<div class="input-block mb-3">
+												<label>SWIFT Code <span class="text-danger">*</span></label>
+												<input type="text" formControlName="swiftCode" class="form-control"
+													placeholder="Enter SWIFT Code">
+											</div>
+											<div
+												*ngIf="addForm.controls['swiftCode'].invalid && addForm.controls['swiftCode'].touched">
+												<div *ngIf="addForm.controls['swiftCode'].errors?.['required']">
+													<span style="color: red;">swift Code is required</span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="add-customer-btns text-end">
+									<a routerLink="Login" class="btn customer-btn-cancel">Login</a>
+									<input type="submit" class="btn customer-btn-save" value="Signup"
+										[disabled]="addForm.invalid">
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<!-- add Agent -->
+				<div *ngIf="path === '/add-accounting-agent'">
+					<div class="card-body">
+						<!-- Page Header -->
+						<div class="page-header">
+							<div class="content-page-header">
+								<h5>Add Accounting Agent</h5>
+							</div>
+						</div>
+						<!-- /Page Header -->
+
+						<form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group-item">
+										<h5 class="form-title">User Details</h5>
+										<div class="profile-picture">
+											<div class="upload-profile">
+												<div class="profile-img">
+													<img id="blah" class="avatar" [src]="url" alt="profile-img" />
+												</div>
+												<div class="add-profile">
+													<h5>Upload a New Photo</h5>
+													<span>Profile-pic.jpg</span>
+												</div>
+											</div>
+											<div class="img-upload">
+												<label class="btn btn-upload">
+													Upload
+													<input type="file" (change)="onImageSelected($event)" />
+												</label>
+												<a class="btn btn-remove"
+													(click)="url = 'assets/default-profile.png'">Remove</a>
+											</div>
+										</div>
+
+										<!-- Form Fields -->
+										<div class="row">
+											<div class="col-lg-4 col-md-6 col-sm-12"
+												*ngFor="let field of ['firstName', 'lastName', 'userName', 'email', 'phone', 'gender']">
+												<div class="input-block mb-3">
+													<label>{{ field | titlecase }} <span
+															class="text-danger">*</span></label>
+													<input *ngIf="field !== 'gender'" type="text"
+														[type]="field === 'email' ? 'email' : 'text'"
+														formControlName="{{ field }}" class="form-control"
+														[placeholder]="'Enter ' + field | titlecase" />
+													<select *ngIf="field === 'gender'" class="form-control"
+														formControlName="gender">
+														<option value="">Select Gender</option>
+														<option value="male">Male</option>
+														<option value="female">Female</option>
+													</select>
+													<div
+														*ngIf="addForm.controls[field].invalid && addForm.controls[field].touched">
+														<span style="color: red;">{{ field | titlecase }} is
+															required</span>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<!-- Other Fields -->
+										<div class="row">
+											<div class="col-lg-6 col-md-12">
+												<div *ngFor="let field of ['fullName', 'address', 'country']"
+													class="input-block mb-3">
+													<label>{{ field | titlecase }} <span
+															class="text-danger">*</span></label>
+													<input type="text" formControlName="{{ field }}"
+														class="form-control"
+														[placeholder]="'Enter ' + field | titlecase" />
+													<div
+														*ngIf="addForm.controls[field].invalid && addForm.controls[field].touched">
+														<span style="color: red;">{{ field | titlecase }} is
+															required</span>
+													</div>
+												</div>
+											</div>
+											<div class="col-lg-6 col-md-12">
+												<div *ngFor="let field of ['city', 'state']" class="input-block mb-3">
+													<label>{{ field | titlecase }} <span
+															class="text-danger">*</span></label>
+													<input type="text" formControlName="{{ field }}"
+														class="form-control"
+														[placeholder]="'Enter ' + field | titlecase" />
+													<div
+														*ngIf="addForm.controls[field].invalid && addForm.controls[field].touched">
+														<span style="color: red;">{{ field | titlecase }} is
+															required</span>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- Action Buttons -->
+							<div class="add-customer-btns text-end">
+								<button type="button" class="btn customer-btn-cancel" routerLink="Login">Login</button>
+								<button type="submit" class="btn customer-btn-save">Signup</button>
+							</div>
+						</form>
+					</div>
+				</div>
+
+
+			</div>
+			<!-- Register Entity -->
+			<div *ngIf="path==='/register-entity'">
+				<div class="card-body">
+					<!-- Page Header -->
+					<div class="page-header">
+						<div class="content-page-header">
+							<h5>Register Entity</h5>
+						</div>
+					</div>
+					<!-- /Page Header -->
+					<div class="row">
+						<div class="col-md-12">
+							<form [formGroup]="entityForm" (ngSubmit)="signup()">
+								<div class="form-group-item">
+									<div class="modal-body">
+										<div class="row">
+											<!-- Company Profile -->
+											<div class="col-md-12">
+												<div class="form-field-item">
+													<h5 class="form-title">Company Profile</h5>
+													<div class="profile-picture">
+														<div class="upload-profile">
+															<div class="profile-img company-profile-img">
+																<img id="company-img" class="avatar" [src]="url" alt="">
+															</div>
+															<div class="add-profile">
+																<h5>Upload a New Photo</h5>
+																<span>Profile-pic.jpg</span>
+															</div>
+														</div>
+														<div class="img-upload">
+															<label class="btn btn-upload">
+																Upload <input type="file"
+																	(change)="onImageSelected($event)">
+															</label>
+															<a class="btn btn-remove">Remove</a>
+														</div>
+													</div>
+												</div>
+											</div>
+
+											<!-- Company Information -->
+											<div class="col-md-6">
+												<div class="input-block mb-3">
+													<label class="form-label">Name</label>
+													<input type="text" class="form-control" formControlName="name"
+														placeholder="Enter Company Name">
+													<small
+														*ngIf="entityForm.get('name')?.touched && entityForm.get('name')?.invalid"
+														class="text-danger">
+														Name is required and must be at least 3 characters.
+													</small>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="input-block mb-3">
+													<label class="form-label">Registration Number</label>
+													<input type="text" class="form-control"
+														formControlName="registrationNumber"
+														placeholder="Enter Registration Number">
+													<small
+														*ngIf="entityForm.get('registrationNumber')?.touched && entityForm.get('registrationNumber')?.invalid"
+														class="text-danger">
+														Registration Number is required.
+													</small>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="input-block mb-3">
+													<label class="form-label">Email Address</label>
+													<input type="text" class="form-control" formControlName="email"
+														placeholder="Enter Company Email">
+													<small
+														*ngIf="entityForm.get('email')?.touched && entityForm.get('email')?.invalid"
+														class="text-danger">
+														Please enter a valid email address.
+													</small>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="input-block mb-3">
+													<label class="form-label">Website</label>
+													<input type="text" class="form-control" formControlName="website"
+														placeholder="Enter Website">
+													<small
+														*ngIf="entityForm.get('website')?.touched && entityForm.get('website')?.invalid"
+														class="text-danger">
+														Please enter a valid website URL.
+													</small>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="input-block mb-3">
+													<label class="form-label">Phone Number</label>
+													<input type="text" class="form-control" formControlName="phone"
+														placeholder="Enter Phone Number">
+													<small
+														*ngIf="entityForm.get('phone')?.touched && entityForm.get('phone')?.invalid"
+														class="text-danger">
+														Phone number is required and must be valid.
+													</small>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="input-block mb-3">
+													<label class="form-label">Industry</label>
+													<input type="text" class="form-control" formControlName="industry"
+														placeholder="Enter Industry">
+													<small
+														*ngIf="entityForm.get('industry')?.touched && entityForm.get('industry')?.invalid"
+														class="text-danger">
+														Industry is required.
+													</small>
+												</div>
+											</div>
+
+											<!-- Address -->
+											<div class="billing-btn mb-2">
+												<h5 class="form-title">Address</h5>
+											</div>
+											<div class="col-md-6">
+												<div class="input-block mb-3">
+													<label>Country <span class="text-danger">*</span></label>
+													<input type="text" class="form-control" formControlName="country"
+														placeholder="Enter Country">
+													<small
+														*ngIf="entityForm.get('country')?.touched && entityForm.get('country')?.invalid"
+														class="text-danger">
+														Country is required.
+													</small>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="input-block mb-3">
+													<label>City <span class="text-danger">*</span></label>
+													<input type="text" class="form-control" formControlName="city"
+														placeholder="Enter City">
+													<small
+														*ngIf="entityForm.get('city')?.touched && entityForm.get('city')?.invalid"
+														class="text-danger">
+														City is required.
+													</small>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="input-block mb-3">
+													<label>State <span class="text-danger">*</span></label>
+													<input type="text" class="form-control" formControlName="state"
+														placeholder="Enter State">
+													<small
+														*ngIf="entityForm.get('state')?.touched && entityForm.get('state')?.invalid"
+														class="text-danger">
+														State is required.
+													</small>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="input-block mb-3">
+													<label>Address <span class="text-danger">*</span></label>
+													<input type="text" class="form-control" formControlName="address"
+														placeholder="Enter Address">
+													<small
+														*ngIf="entityForm.get('address')?.touched && entityForm.get('address')?.invalid"
+														class="text-danger">
+														Address is required.
+													</small>
+												</div>
+											</div>
+
+											<!-- Bank Details -->
+											<div class="billing-btn mb-2">
+												<h5 class="form-title">Bank Details</h5>
+											</div>
+											<div class="col-md-6">
+												<div class="input-block mb-3">
+													<label>Bank Name <span class="text-danger">*</span></label>
+													<input type="text" class="form-control" formControlName="bankName"
+														placeholder="Enter Bank Name">
+													<small
+														*ngIf="entityForm.get('bankName')?.touched && entityForm.get('bankName')?.invalid"
+														class="text-danger">
+														Bank Name is required.
+													</small>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="input-block mb-3">
+													<label>Branch <span class="text-danger">*</span></label>
+													<input type="text" class="form-control" formControlName="branchName"
+														placeholder="Enter Branch Name">
+													<small
+														*ngIf="entityForm.get('branchName')?.touched && entityForm.get('branchName')?.invalid"
+														class="text-danger">
+														Branch Name is required.
+													</small>
+												</div>
+											</div>
+											<div class="col-md-4">
+												<div class="input-block mb-3">
+													<label>Account Holder Name <span
+															class="text-danger">*</span></label>
+													<input type="text" class="form-control"
+														formControlName="accountHolderName"
+														placeholder="Enter Account Holder Name">
+													<small
+														*ngIf="entityForm.get('accountHolderName')?.touched && entityForm.get('accountHolderName')?.invalid"
+														class="text-danger">
+														Account Holder Name is required.
+													</small>
+												</div>
+											</div>
+											<div class="col-md-4">
+												<div class="input-block mb-3">
+													<label>Account Number <span class="text-danger">*</span></label>
+													<input type="text" class="form-control"
+														formControlName="accountNumber"
+														placeholder="Enter Account Number">
+													<small
+														*ngIf="entityForm.get('accountNumber')?.touched && entityForm.get('accountNumber')?.invalid"
+														class="text-danger">
+														Account Number is required and must be numeric.
+													</small>
+												</div>
+											</div>
+											<div class="col-md-4">
+												<div class="input-block mb-3">
+													<label>SWIFT Code <span class="text-danger">*</span></label>
+													<input type="text" class="form-control" formControlName="swiftCode"
+														placeholder="Enter SWIFT Code">
+													<small
+														*ngIf="entityForm.get('swiftCode')?.touched && entityForm.get('swiftCode')?.invalid"
+														class="text-danger">
+														SWIFT Code is required.
+													</small>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="add-customer-btns text-end">
+									<input type="submit" class="btn customer-btn-save" value="Add Entity"
+										[disabled]="entityForm.invalid">
+								</div>
+
+							</form>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+
+
+	</div>
+</div>
+<!-- /Page Wrapper -->

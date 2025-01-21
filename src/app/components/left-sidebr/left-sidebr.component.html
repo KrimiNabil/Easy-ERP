@@ -1,0 +1,553 @@
+<div class="main-wrapper">
+
+	<!-- Header -->
+	<div class="header header-one">
+		<a href="index.html"
+			class="d-inline-flex d-sm-inline-flex align-items-center d-md-inline-flex d-lg-none align-items-center device-logo">
+			<img src="assets/img/logo.png" class="img-fluid logo2" alt="Logo">
+		</a>
+		<div class="main-logo d-inline float-start d-lg-flex align-items-center d-none d-sm-none d-md-none">
+			<div class="logo-white">
+				<a href="index.html">
+					<img src="assets/img/logo-full-white.png" class="img-fluid logo-blue" alt="Logo">
+				</a>
+				<a href="index.html">
+					<img src="assets/img/logo-small-white.png" class="img-fluid logo-small" alt="Logo">
+				</a>
+			</div>
+			<div class="logo-color">
+				<a href="index.html">
+					<img src="assets/img/logo.png" class="img-fluid logo-blue" alt="Logo">
+				</a>
+				<a href="index.html">
+					<img src="assets/img/logo-small.png" class="img-fluid logo-small" alt="Logo">
+				</a>
+			</div>
+		</div>
+		<!-- Sidebar Toggle -->
+		<a href="javascript:void(0);" id="toggle_btn">
+			<span class="toggle-bars">
+				<span class="bar-icons"></span>
+				<span class="bar-icons"></span>
+				<span class="bar-icons"></span>
+				<span class="bar-icons"></span>
+			</span>
+		</a>
+		<!-- /Sidebar Toggle -->
+
+		<!-- Search -->
+		<div class="top-nav-search">
+			<form>
+				<input type="text" class="form-control" placeholder="Search here">
+				<button class="btn" type="submit"><img src="assets/img/icons/search.svg" alt="img"></button>
+			</form>
+		</div>
+		<!-- /Search -->
+
+		<!-- Mobile Menu Toggle -->
+		<a class="mobile_btn" id="mobile_btn">
+			<i class="fas fa-bars"></i>
+		</a>
+		<!-- /Mobile Menu Toggle -->
+
+		<!-- Header Menu -->
+		<ul class="nav nav-tabs user-menu">
+			<!-- Flag -->
+			<li class="nav-item dropdown has-arrow flag-nav">
+				<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button">
+					<img src="assets/img/flags/us1.png" alt="flag"><span>English</span>
+				</a>
+				<div class="dropdown-menu dropdown-menu-end">
+					<a href="javascript:void(0);" class="dropdown-item">
+						<img src="assets/img/flags/us.png" alt="flag"><span>English</span>
+					</a>
+					<a href="javascript:void(0);" class="dropdown-item">
+						<img src="assets/img/flags/fr.png" alt="flag"><span>French</span>
+					</a>
+					<a href="javascript:void(0);" class="dropdown-item">
+						<img src="assets/img/flags/es.png" alt="flag"><span>Spanish</span>
+					</a>
+					<a href="javascript:void(0);" class="dropdown-item">
+						<img src="assets/img/flags/de.png" alt="flag"><span>German</span>
+					</a>
+				</div>
+			</li>
+			<!-- /Flag -->
+			<li *ngIf="isLogedIn()" class="nav-item dropdown  flag-nav dropdown-heads">
+				<a class="nav-link" data-bs-toggle="dropdown" href="#" role="button">
+					<i class="fe fe-bell"></i> <span class="badge rounded-pill"></span>
+				</a>
+				<div class="dropdown-menu notifications">
+					<div class="topnav-dropdown-header">
+						<div class="notification-title">Notifications <a href="notifications.html">View all</a>
+						</div>
+						<a href="javascript:void(0)" class="clear-noti d-flex align-items-center">Mark all as read
+							<i class="fe fe-check-circle"></i></a>
+					</div>
+					<div class="noti-content">
+						<ul class="notification-list">
+							<li class="notification-message">
+								<a href="profile.html">
+									<div class="d-flex">
+										<span class="avatar avatar-md active">
+											<img class="avatar-img rounded-circle" alt="avatar-img"
+												src="assets/img/profiles/avatar-02.jpg">
+										</span>
+										<div class="media-body">
+											<p class="noti-details"><span class="noti-title">Lex Murphy</span>
+												requested access to <span class="noti-title">UNIX directory tree
+													hierarchy</span></p>
+											<div class="notification-btn">
+												<span class="btn btn-primary">Accept</span>
+												<span class="btn btn-outline-primary">Reject</span>
+											</div>
+											<p class="noti-time"><span class="notification-time">Today at 9:42
+													AM</span></p>
+										</div>
+									</div>
+								</a>
+							</li>
+							<li class="notification-message">
+								<a href="profile.html">
+									<div class="d-flex">
+										<span class="avatar avatar-md active">
+											<img class="avatar-img rounded-circle" alt="avatar-img"
+												src="assets/img/profiles/avatar-10.jpg">
+										</span>
+										<div class="media-body">
+											<p class="noti-details"><span class="noti-title">Ray Arnold</span> left
+												6 comments <span class="noti-title">on Isla Nublar SOC2 compliance
+													report</span></p>
+											<p class="noti-time"><span class="notification-time">Yesterday at 11:42
+													PM</span></p>
+										</div>
+									</div>
+								</a>
+							</li>
+							<li class="notification-message">
+								<a href="profile.html">
+									<div class="d-flex">
+										<span class="avatar avatar-md">
+											<img class="avatar-img rounded-circle" alt="avatar-img"
+												src="assets/img/profiles/avatar-13.jpg">
+										</span>
+										<div class="media-body">
+											<p class="noti-details"><span class="noti-title">Dennis Nedry</span>
+												commented on <span class="noti-title"> Isla Nublar SOC2 compliance
+													report</span></p>
+											<blockquote>
+												“Oh, I finished de-bugging the phones, but the system's compiling
+												for eighteen minutes, or twenty. So, some minor systems may go on
+												and off for a while.”
+											</blockquote>
+											<p class="noti-time"><span class="notification-time">Yesterday at 5:42
+													PM</span></p>
+										</div>
+									</div>
+								</a>
+							</li>
+							<li class="notification-message">
+								<a href="profile.html">
+									<div class="d-flex">
+										<span class="avatar avatar-md">
+											<img class="avatar-img rounded-circle" alt="avatar-img"
+												src="assets/img/profiles/avatar-05.jpg">
+										</span>
+										<div class="media-body">
+											<p class="noti-details"><span class="noti-title">John Hammond</span>
+												created <span class="noti-title">Isla Nublar SOC2 compliance
+													report</span></p>
+											<p class="noti-time"><span class="notification-time">Last Wednesday at
+													11:15 AM</span></p>
+										</div>
+									</div>
+								</a>
+							</li>
+						</ul>
+					</div>
+					<div class="topnav-dropdown-footer">
+						<a href="#">Clear All</a>
+					</div>
+				</div>
+			</li>
+			<li class="nav-item  has-arrow dropdown-heads ">
+				<a href="javascript:void(0);" class="win-maximize">
+					<i class="fe fe-maximize"></i>
+				</a>
+			</li>
+			<!-- User Menu -->
+			<li *ngIf="isLogedIn()" class="nav-item dropdown">
+				<a href="javascript:void(0)" class="user-link  nav-link" data-bs-toggle="dropdown">
+					<span class="user-img">
+						<img [src]="connectedUser.avatar" alt="img" class="profilesidebar">
+						<span class="animate-circle"></span>
+					</span>
+					<span class="user-content">
+						<span class="user-details">{{connectedUser.role}}</span>
+						<span class="user-name">{{connectedUser.userName}}</span>
+					</span>
+				</a>
+				<div class="dropdown-menu menu-drop-user">
+					<div class="profilemenu">
+						<div class="subscription-menu">
+							<ul>
+								<li>
+									<a class="dropdown-item" href="profile.html">Profile</a>
+								</li>
+
+							</ul>
+						</div>
+						<div class="subscription-logout">
+							<ul>
+								<li class="pb-0">
+									<a class="dropdown-item" (click)="logout( )">Log Out</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</li>
+			<!-- /User Menu -->
+
+		</ul>
+
+		<!-- /Header Menu -->
+
+	</div>
+	<!-- /Header -->
+	<!-- Sidebar -->
+	<div class="sidebar" id="sidebar">
+		<div class="sidebar-inner slimscroll">
+			<div id="sidebar-menu" class="sidebar-menu">
+
+				<ul class="sidebar-vertical">
+					<!-- Main -->
+					<li class="menu-title"><span>Main</span></li>
+
+					<!-- Admin Menu -->
+					<div *ngIf="connectedUser.role === 'Admin'">
+						<li class="submenu">
+							<a routerLink="dashboard-admin" class="active"><i class="fe fe-home"></i><span>Admin Dashboard</span> </a>
+							<ul>
+								<li><a href="subscription.html">Subscription</a></li>
+								<li><a href="packages.html">Packages</a></li>
+
+							</ul>
+							
+						</li>
+						<!-- User Management -->
+						<li class="menu-title"><span>User Management</span></li>
+						<li>
+							<a routerLink="users-list"><i class="fe fe-user"></i> <span>Users</span></a>
+						</li>
+						<li>
+							<a routerLink=""><i class="fe fe-clipboard"></i> <span>Roles &
+									Permission</span></a>
+						</li>
+
+						<!-- /User Management -->
+						 	<!-- Entities -->
+						<li class="menu-title"><span>Entities</span></li>
+						<li class="submenu">
+							<a ><i class="fe fe-file"></i> <span>Entities</span><span
+									class="menu-arrow"></span></a>
+							<ul style="display: none;">
+								<a routerLink="entities-list"><i class="fe fe-clipboard"></i> <span>Entities List
+									</span></a>
+								<a routerLink="agents-list"><i class="fe fe-clipboard"></i> <span>Agnets List
+									</span></a>
+
+								<a routerLink="signature-list"><i class="fe fe-box"></i> <span>Signature
+										List</span></a>
+							</ul>
+						</li>
+						<!-- Reports -->
+						<li class="menu-title"><span>Reports</span></li>
+
+						<!-- /Reports -->
+						<li class="submenu">
+							<a href="#"><i class="fe fe-box"></i><span>Reports</span> <span
+									class="menu-arrow"></span></a>
+							<ul>
+								<li><a routerLink="coming-soon">Expense Report</a></li>
+								<li><a routerLink="coming-soon">Purchase Report</a></li>
+								<li><a routerLink="coming-soon">Purchase Return Report</a></li>
+								<li><a routerLink="coming-soon">Sales Report</a></li>
+								<li><a routerLink="coming-soon">Sales Return Report</a></li>
+								<li><a routerLink="coming-soon">Quotation Report</a></li>
+								<li><a routerLink="coming-soon">Payment Report</a></li>
+								<li><a routerLink="coming-soon">Stock Report</a></li>
+								<li><a routerLink="coming-soon">Low Stock Report</a></li>
+								<li><a routerLink="coming-soon">Income Report</a></li>
+								<li><a routerLink="coming-soon">Tax Report</a></li>
+								<li><a routerLink="coming-soon">Profit & Loss</a></li>
+							</ul>
+						</li>
+						<!-- /Entities -->
+					</div>
+					<!-- Entity Owner or Accounting Agent -->
+					<div *ngIf="connectedUser.role === 'Entity Owner' || connectedUser.role === 'Accounting Agent'">
+						<li class="submenu">
+							<a routerLink="dashboard-entity"><i class="fe fe-home"></i> <span>Entity Dashboard</span>
+							</a>
+						</li>
+						<li class="menu-title"><span>Entity</span></li>
+						<li class="submenu">
+							<a><i class="fe fe-file"></i> <span>Entity</span><span
+									class="menu-arrow"></span></a>
+							<ul *ngIf="connectedUser.role === 'Entity Owner'" style="display: none;">
+								<a routerLink="add-accounting-agent"><i class="fe fe-clipboard"></i> <span>Add Agent
+									</span></a>
+								<a routerLink="add-accounting-agent"><i class="fe fe-clipboard"></i> <span>Add HOD
+									</span></a>
+								<a routerLink="agents-list"><i class="fe fe-clipboard"></i> <span>Agnets List
+									</span></a>
+								<a href="signature-list"><i class="fe fe-clipboard"></i> <span>Signatures List
+									</span></a>
+								
+							</ul>
+							<ul *ngIf="connectedUser.role === 'Accounting Agent'" style="display: none;">
+								
+								<a routerLink="agents-list"><i class="fe fe-clipboard"></i> <span>Agnets List
+									</span></a>
+								<a href="signature-list"><i class="fe fe-clipboard"></i> <span>Signatures List
+									</span></a>
+								
+							</ul>
+						</li>
+						<!-- Customers -->
+						<li class="menu-title"><span>Customers/Vendors</span></li>
+						<li class="submenu">
+							<a href="#"><i class="fe fe-users"></i> <span>Customers/Vendors</span><span
+									class="menu-arrow"></span></a>
+							<ul style="display: none;">
+								<a routerLink="coming-soon"><i class="fe fe-users"></i> <span>Vendors List</span></a>
+								<a routerLink="coming-soon"><i class="fe fe-user"></i> <span>Customers List</span></a>
+
+							</ul>
+						</li>
+						<!-- /Customers -->
+						<!-- /Entities -->
+						<!-- /Customers -->
+						<li class="menu-title"><span>Quotations</span></li>
+						<li>
+							<a href="#"><i class="fe fe-shopping-cart"></i> <span>Quotations</span><span
+									class="menu-arrow"></span></a>
+
+							<ul style="display: none;">
+								<a routerLink="quotations-list"><i class="fe fe-shopping-cart"></i>
+									<span>Quotations List</span></a>
+								<a routerLink="creat-Quotations"><i class="fe fe-file-text"></i> <span>Add
+										Price Quotation</span></a>
+
+							</ul>
+						</li>
+						<!-- /Entities -->
+						<!-- Sales -->
+						<li class="menu-title"><span>Sales</span></li>
+						<li class="submenu">
+
+							<a href="#"><i class="fe fe-file"></i> <span>Invoices</span><span
+									class="menu-arrow"></span></a>
+							<ul style="display: none;">
+								<li><a routerLink="invoices-list">Invoices List</a></li>
+								<li><a routerLink="add-invoice">Add Invoice</a></li>
+								<li><a routerLink="bills-list">Bills List</a></li>
+								<li><a routerLink="add-bill">Add Bill</a></li>
+							</ul>
+						</li>
+
+						<!-- /Sales -->
+						<!-- Inventory -->
+						<li class="menu-title"><span>Inventory</span></li>
+						<li class="submenu">
+							<a ><i class="fe fe-package"></i> <span> Inventory</span> <span
+									class="menu-arrow"></span></a>
+							<ul style="display: none;">
+								<li><a routerLink="inventory">Product List</a></li>
+								<li><a href="category.html">Category</a></li>
+
+								<li><a href="units.html">Units</a></li>
+							</ul>
+						</li>
+
+
+						<!-- Finance & Accounts -->
+						<li class="menu-title"><span>Finance & Accounts</span></li>
+						<li>
+							<a routerLink="coming-soon"><i class="fe fe-file-plus"></i> <span>Expenses</span></a>
+						</li>
+						<li>
+							<a routerLink="coming-soon"><i class="fe fe-credit-card"></i> <span>Payments</span></a>
+						</li>
+						<!-- /Finance & Accounts -->
+
+						<!-- Reports -->
+						<li class="menu-title"><span>Reports</span></li>
+
+						<!-- /Reports -->
+						<li class="submenu">
+							<a href="#"><i class="fe fe-box"></i><span>Reports</span> <span
+									class="menu-arrow"></span></a>
+							<ul>
+								<li><a routerLink="coming-soon">Expense Report</a></li>
+								<li><a routerLink="coming-soon">Purchase Report</a></li>
+								<li><a routerLink="coming-soon">Purchase Return Report</a></li>
+								<li><a routerLink="coming-soon">Sales Report</a></li>
+								<li><a routerLink="coming-soon">Sales Return Report</a></li>
+								<li><a routerLink="coming-soon">Quotation Report</a></li>
+								<li><a routerLink="coming-soon">Payment Report</a></li>
+								<li><a routerLink="coming-soon">Stock Report</a></li>
+								<li><a routerLink="coming-soon">Low Stock Report</a></li>
+								<li><a routerLink="coming-soon">Income Report</a></li>
+								<li><a routerLink="coming-soon">Tax Report</a></li>
+								<li><a routerLink="coming-soon">Profit & Loss</a></li>
+							</ul>
+						</li>
+
+					</div>
+
+					<!-- Client Menu -->
+					<div *ngIf="connectedUser.role === 'Client'">
+						<li class="submenu">
+							<a routerLink="dashboard"><i class="fe fe-home"></i> <span>Client Dashboard</span> </a>
+						</li>
+						<!-- Entities -->
+						<li class="menu-title"><span>Entity</span></li>
+						<li class="submenu">
+							<a ><i class="fe fe-file"></i> <span>Entity</span><span
+									class="menu-arrow"></span></a>
+							<ul style="display: none;">
+								<a routerLink="register-entity"><i class="fe fe-clipboard"></i> <span>Add Entity
+									</span></a>
+							</ul>
+						</li>
+						<!-- Customers -->
+						<li class="menu-title"><span>Customers/Vendors</span></li>
+						<li class="submenu">
+							<a href="#"><i class="fe fe-users"></i> <span>Customers/Vendors</span><span
+									class="menu-arrow"></span></a>
+							<ul style="display: none;">
+								<a routerLink="coming-soon"><i class="fe fe-users"></i> <span>Vendors List</span></a>
+								<a routerLink="coming-soon"><i class="fe fe-user"></i> <span>Customers List</span></a>
+
+							</ul>
+						</li>
+						<!-- /Customers -->
+						<li class="menu-title"><span>Quotations</span></li>
+						<li>
+							<a href="#"><i class="fe fe-shopping-cart"></i> <span>Quotations</span><span
+									class="menu-arrow"></span></a>
+
+							<ul style="display: none;">
+								<a routerLink="quotations-list"><i class="fe fe-shopping-cart"></i>
+									<span>Quotations List</span></a>
+								<a routerLink="creat-Quotations"><i class="fe fe-file-text"></i> <span>Add
+										Price Quotation</span></a>
+
+							</ul>
+						</li>
+						<!-- /Entities -->
+						<!-- Sales -->
+						<li class="menu-title"><span>Sales</span></li>
+						<li class="submenu">
+
+							<a href="#"><i class="fe fe-file"></i> <span>Invoices</span><span
+									class="menu-arrow"></span></a>
+							<ul style="display: none;">
+								<li><a routerLink="invoices-list">Invoices List</a></li>
+								<li><a routerLink="add-invoice">Add Invoice</a></li>
+								<li><a routerLink="bills-list">Bills List</a></li>
+								<li><a routerLink="add-bill">Add Bill</a></li>
+							</ul>
+						</li>
+						<!-- /Sales -->
+						<!-- Inventory -->
+						<li class="menu-title"><span>Inventory</span></li>
+						<li class="submenu">
+							<a routerLink="inventory"><i class="fe fe-package"></i> <span> Inventory</span> <span
+									class="menu-arrow"></span></a>
+							<ul style="display: none;">
+								<li><a routerLink="inventory">Product List</a></li>
+								<li><a routerLink="coming-soon">Category</a></li>
+								<li><a routerLink="coming-soon">Units</a></li>
+							</ul>
+						</li>
+						<!-- Finance & Accounts -->
+						<li class="menu-title"><span>Finance & Accounts</span></li>
+						<li>
+							<a routerLink="coming-soon"><i class="fe fe-file-plus"></i> <span>Expenses</span></a>
+						</li>
+						<li>
+							<a routerLink="coming-soon"><i class="fe fe-credit-card"></i> <span>Payments</span></a>
+						</li>
+						<!-- /Finance & Accounts -->
+
+						<!-- Reports -->
+						<li class="menu-title"><span>Reports</span></li>
+
+						<!-- /Reports -->
+						<li class="submenu">
+							<a href="#"><i class="fe fe-box"></i><span>Reports</span> <span
+									class="menu-arrow"></span></a>
+							<ul>
+								<li><a routerLink="coming-soon">Purchase Report</a></li>
+								<li><a routerLink="coming-soon">Sales Report</a></li>
+								<li><a routerLink="coming-soon">Stock Report</a></li>
+								<li><a routerLink="coming-soon">Profit & Loss</a></li>
+							</ul>
+						</li>
+
+					</div>
+					<!-- <li class="submenu">
+						<a href="#"><i class="fe fe-home"></i> <span> Dashboard</span> <span
+								class="menu-arrow"></span></a>
+						<ul *ngIf="isLogedIn() && connectedUser.role=='Admin'" style="display: none;">
+							<li><a class="active" routerLink="dashboard-admin">Admin Dashboard</a></li>
+						</ul>
+						
+						
+					</li> -->
+
+					<!-- /Main -->
+
+					<!-- <li class="submenu">
+							<a href="#" class=""><i class="fe fe-user"></i> <span> Super Admin</span> <span
+									class="menu-arrow"></span></a>
+							<ul>
+								<li><a href="dashboard.html">Dashboard</a></li>
+								<li><a href="companies.html">Companies</a></li>
+								<li><a href="subscription.html">Subscription</a></li>
+								<li><a href="packages.html">Packages</a></li>
+								<li><a href="domain.html">Domain</a></li>
+								<li><a href="purchase-transaction.html">Purchase Transaction</a></li>
+							</ul>
+						</li> -->
+
+					
+
+					<div>
+
+						<!-- <li>
+						<a href="inventory.html" class="active"><i class="fe fe-user"></i> <span>Inventory</span></a>
+					</li> -->
+						<!-- /Inventory -->
+					</div>
+
+
+
+
+
+
+					<li>
+						<a href="login.html"><i class="fe fe-power"></i> <span>Logout</span></a>
+					</li>
+
+
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- /Sidebar -->
+</div>
+<!-- /Main Wrapper -->

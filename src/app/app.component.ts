@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'easy-ERP';
+  isLoggedIn(): boolean {
+    
+    return !!sessionStorage.getItem('user'); 
+  }
 }

@@ -1,0 +1,821 @@
+<form #updateForm="ngForm" (ngSubmit)="update()">
+    <!-- Page Wrapper -->
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+            <div class="card mb-0">
+                <div *ngIf="payables.documentName ==='Requisition'">
+                    <div class="card-body">
+                        <div class="page-header">
+                            <div class="content-page-header">
+                                <h5>Edit Purchase Requisition</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group-item border-0 mb-0">
+                                    <div class="row align-item-center">
+                                        <div class="col-lg-4 col-md-6 col-sm-12">
+                                            <div class="input-block mb-3">
+                                                <label>Requisition Number</label>
+                                                <input type="text" [(ngModel)]="payables.requisitionID"
+                                                    name="purchaseOrder" class="form-control"
+                                                    placeholder="Enter Purchase Order Number">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-6 col-sm-12">
+                                            <div class="input-block mb-3">
+                                                <label>Requisition Number</label>
+                                                <input type="text" [(ngModel)]="payables.requester.name"
+                                                    name="requesterName" class="form-control"
+                                                    placeholder="Enter Purchase Order Number">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-6 col-sm-12">
+                                            <div class="input-block mb-3">
+                                                <label>Invoice Date</label>
+                                                <div class="cal-icon cal-icon-info">
+                                                    <input type="text" class="datetimepicker form-control"
+                                                        [(ngModel)]="payables.requestDate" name="date"
+                                                        placeholder="Select Date">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-6 col-sm-12">
+                                            <div class="input-block mb-3">
+                                                <label>Due Date</label>
+                                                <div class="cal-icon cal-icon-info">
+                                                    <input type="text" class="datetimepicker form-control"
+                                                        [(ngModel)]="payables.dueDate" name="dueDate"
+                                                        placeholder="Select Date">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group-item">
+                                    <div class="card-table">
+                                        <div class="card-body">
+                                            <div class="table-responsive no-pagination">
+                                                <table id="vieTab" class="table table-center table-hover datatable">
+                                                    <thead class="thead-light">
+                                                        <tr>
+                                                            <th>Product / Service</th>
+                                                            <th>Description</th>
+                                                            <th>Quantity</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let product of products; let i=index">
+                                                            <td><input type="text" class="form-control"
+                                                                    [(ngModel)]="product.productName" name="=productName"
+                                                                    placeholder="Product/Service" >
+                                                            </td>
+                                                            <td><input type="text" class="form-control"
+                                                                    [(ngModel)]="product.description" name="description"
+                                                                    placeholder="Product/Service">
+                                                            </td>
+                                                            <td><input type="number" class="form-control"
+                                                                    [(ngModel)]="product.quantity" name="=quantity">
+                                                            </td>
+                                                            
+                                                            <td class="d-flex align-items-center">
+
+
+                                                                <a href="#" class="btn-action-icon"
+                                                                    (click)="removeItem(i)"><span><i
+                                                                            class="fe fe-trash-2"></i></span></a>
+                                                            </td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                    <button type="reset" class="btn btn-primary "
+                                                        (click)="addItem()">Add Item</button>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                               
+                                <div class="form-group-item border-0 p-0">
+                                    <div class="row">
+                                        <div class="col-xl-6 col-lg-12">
+                                            <div class="form-group-bank">
+                                                
+                                               
+                                                <div class="input-block mb-3 notes-form-group-info mb-0">
+                                                    <label>Justification</label>
+                                                    <textarea class="form-control" [(ngModel)]="payables.justification"
+                                                        name="terms"
+                                                        placeholder="Enter Terms and Conditions"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-12">
+                                            <div class="form-group-bank">
+                                               
+                                                <div class="input-block mb-3">
+                                                    <label>Signature Name</label>
+                                                    <input type="text" class="form-control"
+                                                        [(ngModel)]="payables.signature" name="signature"
+                                                        placeholder="Enter Signature Name">
+                                                </div>
+                                                <div class="input-block mb-0">
+                                                    <label>Signature Image</label>
+                                                    <div
+                                                        class="input-block mb-3 service-upload service-upload-info mb-0">
+                                                        <span><i class="fe fe-upload-cloud me-1"></i>Upload
+                                                            Signature</span>
+                                                        <input type="file" multiple="" id="image_sign">
+                                                        <div id="frames"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="reset" class="btn btn-primary cancel me-2">Cancel</button>
+                              
+
+                                <input type="submit" class="btn btn-primary" value="Save & Send">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="payables.documentName ==='Purchase Order'">
+                    <div class="card-body">
+                        <div class="page-header">
+                            <div class="content-page-header">
+                                <h5>Add Purchase Order</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group-item border-0 mb-0">
+                                    <div class="row align-item-center">
+                                        <div class="col-lg-4 col-md-6 col-sm-12">
+                                            <div class="input-block mb-3">
+                                                <label>Purchase Order Number</label>
+                                                <input type="text" [(ngModel)]="payables.purchaseOrder"
+                                                    name="purchaseOrder" class="form-control"
+                                                    placeholder="Enter Purchase Order Number">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-6 col-sm-12">
+                                            <div class="input-block mb-3">
+                                                <label>Purchase Requisition Reference</label>
+                                                <input type="text" [(ngModel)]="payables.purchaseRequsitionsID"
+                                                    name="reference" class="form-control"
+                                                    placeholder="Enter Purchase Order Number">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-6 col-sm-12">
+                                            <div class="input-block mb-3">
+                                                <label>Purchase Order Date</label>
+                                                <div class="cal-icon cal-icon-info">
+                                                    <input type="text" class="datetimepicker form-control"
+                                                        [(ngModel)]="payables.poDate" name="date"
+                                                        placeholder="Select Date">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-6 col-sm-12">
+                                            <div class="input-block mb-3">
+                                                <label>Due Date</label>
+                                                <div class="cal-icon cal-icon-info">
+                                                    <input type="text" class="datetimepicker form-control"
+                                                        [(ngModel)]="payables.dueDate" name="dueDate"
+                                                        placeholder="Select Date">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group-item">
+                                    <div class="card-table">
+                                        <div class="card-body">
+                                            <div class="table-responsive no-pagination">
+                                                <table id="vieTab" class="table table-center table-hover datatable">
+                                                    <thead class="thead-light">
+                                                        <tr>
+                                                            <th>Product / Service</th>
+                                                            <th>Description</th>
+                                                             <th>Quantity</th>
+                                                            <th>H.T</th>
+                                                            <th>TVA</th>
+                                                            <th>Amount</th>
+                                                            <th class="no-sort">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let product of products; let i=index">
+                                                            <td><input type="text" class="form-control"
+                                                                    [(ngModel)]="product.itemName" name="productName"
+                                                                    placeholder="Product/Service">
+                                                            </td>
+                                                            <td><input type="text" class="form-control"
+                                                                    [(ngModel)]="product.description" name="description"
+                                                                    placeholder="Product/Service">
+                                                            </td>
+                                                            <td><input type="number" class="form-control"
+                                                                    [(ngModel)]="product.quentity" name="quantity"
+                                                                    (ngModelChange)="updateTTC(product)">
+                                                            </td>
+                                                            <td><input type="number" class="form-control"
+                                                                    [(ngModel)]="product.priceHT" name="priceHT"
+                                                                    (ngModelChange)="updateTTC(product)"></td>
+
+                                                            <td><input type="number" class="form-control"
+                                                                    [(ngModel)]="product.priceTVA"   name="priceTVA"
+                                                                    (ngModelChange)="updateTTC(product)">
+                                                            </td>
+                                                            <td>{{product.priceTTC   |currency }}</td>                     
+ 
+                                                            <td class="d-flex align-items-center">
+
+
+                                                                <a href="#" class="btn-action-icon"
+                                                                    (click)="removeItem(i)"><span><i
+                                                                            class="fe fe-trash-2"></i></span></a>
+                                                            </td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                    <button type="reset" class="btn btn-primary "
+                                                        (click)="addItem()">Add Item</button>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="input-block mb-3">
+                                                    <label>Bank Name <span class="text-danger">*</span></label>
+                                                    <input type="text" class="form-control"
+                                                        [(ngModel)]="payables.bankName" name="bankName"
+                                                        placeholder="Enter Bank Name">
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="input-block mb-3">
+                                                    <label>Account Number <span class="text-danger">*</span></label>
+                                                    <input type="number" [(ngModel)]="payables.accountNumber"
+                                                        name="accountNumber" class="form-control"
+                                                        placeholder="Enter Account Number">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="input-block mb-3">
+                                                    <label>Account Holder Name <span
+                                                            class="text-danger">*</span></label>
+                                                    <input type="text" class="form-control"
+                                                        [(ngModel)]="payables.holderNamer" name="holderNamer"
+                                                        placeholder="Enter Account Holder Name">
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="input-block mb-3">
+                                                <label>Branch Name <span class="text-danger">*</span></label>
+                                                <input type="text" [(ngModel)]="payables.bankBranch" name="bankBranch"
+                                                    class="form-control" placeholder="Enter Branch Name">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="input-block mb-0">
+                                                <label>SWIFT Code <span class="text-danger">*</span></label>
+                                                <input type="number" [(ngModel)]="payables.swiftCode" name="swiftCode"
+                                                    class="form-control" placeholder="Enter SWIFT Code">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <div class="form-group-item border-0 p-0">
+                                    <div class="row">
+                                        <div class="col-xl-6 col-lg-12">
+                                            <div class="form-group-bank">
+                                                <div class="input-block mb-3">
+                                                    <label>Discount</label>
+                                                    <input type="text" [(ngModel)]="payables.discountsAndAdjustments.discount" name="discount"
+                                                        class="form-control" placeholder="Enter Discount">
+                                                </div>
+                                                <div class="input-block mb-3 notes-form-group-info">
+                                                    <label>Notes</label>
+                                                    <textarea class="form-control" [(ngModel)]="payables.discountsAndAdjustments.discountTerms"
+                                                        name="note" placeholder="Enter Notes"></textarea>
+                                                </div>
+                                                <div class="input-block mb-3 notes-form-group-info mb-0">
+                                                    <label>Terms and Conditions</label>
+                                                    <textarea class="form-control" [(ngModel)]="payables.discountsAndAdjustments.adjustments"
+                                                        name="terms"
+                                                        placeholder="Enter Terms and Conditions"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-12">
+                                            <div class="form-group-bank">
+                                                <div class="invoice-total-box">
+                                                    <div class="invoice-total-inner">
+                                                        <p>Taxable Amount <span>{{calcSum(products)|currency}}</span></p>
+                                                        <p>Discount <span>{{payables.discountsAndAdjustments.discount|currency}}</span>
+                                                        </p>
+
+                                                    </div>
+                                                    <div class="invoice-total-footer">
+                                                        <h4>Total Amount
+                                                            <span>{{calcAmount(products,payables.discountsAndAdjustments.discount)|currency}}</span>
+                                                        </h4>
+                                                    </div>
+                                                </div>
+                                                <div class="input-block mb-3">
+                                                    <label>Signature Name</label>
+                                                    <input type="text" class="form-control"
+                                                        [(ngModel)]="payables.approval.approvedBy" name="signature"
+                                                        placeholder="Enter Signature Name">
+                                                </div>
+                                                <div class="input-block mb-0">
+                                                    <label>Signature Image</label>
+                                                    <div
+                                                        class="input-block mb-3 service-upload service-upload-info mb-0">
+                                                        <span><i class="fe fe-upload-cloud me-1"></i>Upload
+                                                            Signature</span>
+                                                        <input type="file" multiple="" id="image_sign">
+                                                        <div id="frames"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="reset" class="btn btn-primary cancel me-2">Cancel</button>
+                                <button type="reset" class="btn btn-primary cancel me-2">Save</button>
+
+                                <input type="submit" class="btn btn-primary" value="Save & Send">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="payables.documentName ==='Invoice'">
+                    <div class="card-body">
+                        <div class="page-header">
+                            <div class="content-page-header">
+                                <h5>Edit Invoice</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group-item border-0 mb-0">
+                                    <div class="row align-item-center">
+                                        <div class="col-lg-4 col-md-6 col-sm-12">
+                                            <div class="input-block mb-3">
+                                                <label>Invoice Number</label>
+                                                <input type="text" [(ngModel)]="payables.invoiceID"
+                                                    name="purchaseOrder" class="form-control"
+                                                    placeholder="Enter Purchase Order Number">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-6 col-sm-12">
+                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                <div class="input-block mb-3">
+                                                    <label>Purchase Order Reference</label>
+                                                    <input type="text" [(ngModel)]="payables.purchaseOrderID.purchaseOrder"
+                                                        name="reference" class="form-control"
+                                                        placeholder="Enter Purchase Order Number">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-6 col-sm-12">
+                                            <div class="input-block mb-3">
+                                                <label>Invoice Date</label>
+                                                <div class="cal-icon cal-icon-info">
+                                                    <input type="text" class="datetimepicker form-control"
+                                                        [(ngModel)]="payables.date" name="date"
+                                                        placeholder="Select Date">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-6 col-sm-12">
+                                            <div class="input-block mb-3">
+                                                <label>Due Date</label>
+                                                <div class="cal-icon cal-icon-info">
+                                                    <input type="text" class="datetimepicker form-control"
+                                                        [(ngModel)]="payables.dueDate" name="dueDate"
+                                                        placeholder="Select Date">
+                                                </div>
+                                            </div>
+                                        </div>
+                                   </div>
+                                </div>
+                                <div class="form-group-item">
+                                    <div class="card-table">
+                                        <div class="card-body">
+                                            <div class="table-responsive no-pagination">
+                                                <table id="vieTab" class="table table-center table-hover datatable">
+                                                    <thead class="thead-light">
+                                                        <tr>
+                                                            <th>Product / Service</th>
+                                                            <th>Quantity</th>
+                                                            <th>H.T</th>
+                                                            <th>TVA</th>
+                                                            <th>Amount</th>
+                                                            <th class="no-sort">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let product of products; let i=index">
+                                                            <td><input type="text" class="form-control"
+                                                                    [(ngModel)]="product.productName" name="=productName"
+                                                                    placeholder="Product/Service">
+                                                            </td>
+                                                            <td><input type="number" class="form-control"
+                                                                    [(ngModel)]="product.quantity" name="quantity"  (ngModelChange)="updateTTC(product)">
+                                                            </td>
+                                                            <td><input type="number" class="form-control"
+                                                                    [(ngModel)]="product.priceHT" name="priceHT"  (ngModelChange)="updateTTC(product)"></td>
+
+                                                            <td><input type="number" class="form-control"
+                                                                    [(ngModel)]="product.priceTVA" name="priceTVA"  (ngModelChange)="updateTTC(product)">
+                                                            </td>
+                                                            <!-- <td><input type="number" class="form-control"
+                                                                [(ngModel)]="product.priceTTC" name="priceTTC"  (ngModelChange)="updateTTC(product)">
+                                                        </td> -->
+                                                            <td>{{product.priceTTC|currency }}</td>
+                                                            <td class="d-flex align-items-center">
+
+
+                                                                <a href="#" class="btn-action-icon"
+                                                                    (click)="removeItem(i)"><span><i
+                                                                            class="fe fe-trash-2"></i></span></a>
+                                                            </td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                    <button type="reset" class="btn btn-primary "
+                                                        (click)="addItem()">Add Item</button>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="input-block mb-3">
+                                                    <label>Bank Name <span class="text-danger">*</span></label>
+                                                    <input type="text" class="form-control"
+                                                        [(ngModel)]="payables.bankAccountInfo.bankName" name="bankName"
+                                                        placeholder="Enter Bank Name">
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="input-block mb-3">
+                                                    <label>Account Number <span class="text-danger">*</span></label>
+                                                    <input type="number" [(ngModel)]="payables.bankAccountInfo.accountNumber"
+                                                        name="accountNumber" class="form-control"
+                                                        placeholder="Enter Account Number">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="input-block mb-3">
+                                                    <label>Account Holder Name <span
+                                                            class="text-danger">*</span></label>
+                                                    <input type="text" class="form-control"
+                                                        [(ngModel)]="payables.bankAccountInfo.accountHolderName" name="holderNamer"
+                                                        placeholder="Enter Account Holder Name">
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="input-block mb-3">
+                                                <label>Branch Name <span class="text-danger">*</span></label>
+                                                <input type="text" [(ngModel)]="payables.bankAccountInfo.branchName" name="bankBranch"
+                                                    class="form-control" placeholder="Enter Branch Name">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="input-block mb-0">
+                                                <label>Customer Eamil <span class="text-danger">*</span></label>
+                                                <input type="email" [(ngModel)]="payables.bankAccountInfo.email" name="email"
+                                                    class="form-control" placeholder="Enter email ">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group-item border-0 p-0">
+                                    <div class="row">
+                                        <div class="col-xl-6 col-lg-12">
+                                            <div class="form-group-bank">
+                                                <div class="input-block mb-3">
+                                                    <label>Discount</label>
+                                                    <input type="text" [(ngModel)]="payables.discountsAndAdjustments.discount" name="discount"
+                                                        class="form-control" placeholder="Enter Discount">
+                                                </div>
+                                                <div class="input-block mb-3 notes-form-group-info">
+                                                    <label>Notes</label>
+                                                    <textarea class="form-control" [(ngModel)]="payables.discountsAndAdjustments.discountTerms"
+                                                        name="note" placeholder="Enter Notes"></textarea>
+                                                </div>
+                                                <div class="input-block mb-3 notes-form-group-info mb-0">
+                                                    <label>Terms and Conditions</label>
+                                                    <textarea class="form-control" [(ngModel)]="payables.discountsAndAdjustments.adjustments"
+                                                        name="terms"
+                                                        placeholder="Enter Terms and Conditions"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-12">
+                                            <div class="form-group-bank">
+                                                <div class="invoice-total-box">
+                                                    <div class="invoice-total-inner">
+                                                        <p>Taxable Amount <span>{{calcSum(products)|currency}}</span></p>
+                                                        <p>Discount <span>{{payables.discountsAndAdjustments.discount|currency}}</span>
+                                                        </p>
+
+                                                    </div>
+                                                    <div class="invoice-total-footer">
+                                                        <h4>Total Amount
+                                                            <span>{{payables.amount|currency}}</span>
+                                                        </h4>
+                                                    </div>
+                                                </div>
+                                                <div class="input-block mb-3">
+                                                    <label>Signature Name</label>
+                                                    <input type="text" class="form-control"
+                                                        [(ngModel)]="payables.approval.approvedBy" name="signature"
+                                                        placeholder="Enter Signature Name">
+                                                </div>
+                                                <div class="input-block mb-0">
+                                                    <label>Signature Image</label>
+                                                    <div
+                                                        class="input-block mb-3 service-upload service-upload-info mb-0">
+                                                        <span><i class="fe fe-upload-cloud me-1"></i>Upload
+                                                            Signature</span>
+                                                        <input type="file" multiple="" id="image_sign">
+                                                        <div id="frames"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="reset" class="btn btn-primary cancel me-2">Cancel</button>
+                                <button type="reset" class="btn btn-primary cancel me-2">Save</button>
+
+                                <input type="submit" class="btn btn-primary" value="Save & Send">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="payables.documentName ==='Bill'">
+                    <div class="card-body">
+                        <div class="page-header">
+                            <div class="content-page-header">
+                                <h5>Edit Bill</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group-item border-0 mb-0">
+                                    <div class="row align-item-center">
+                                        <div class="col-lg-4 col-md-6 col-sm-12">
+                                            <div class="input-block mb-3">
+                                                <label>Bill Number</label>
+                                                <input type="text" [(ngModel)]="payables.paymentID"
+                                                    name="purchaseOrder" class="form-control"
+                                                    placeholder="Enter Purchase Order Number">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-6 col-sm-12">
+                                            <div class="input-block mb-3">
+                                                <label>invoice Reference</label>
+                                                <input type="text" [(ngModel)]="payables.invoiceID.invoiceID"
+                                                    name="reference" class="form-control"
+                                                    placeholder="Enter Purchase Order Number">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-6 col-sm-12">
+                                            <div class="input-block mb-3">
+                                                <label>Invoice Date</label>
+                                                <div class="cal-icon cal-icon-info">
+                                                    <input type="text" class="datetimepicker form-control"
+                                                        [(ngModel)]="payables.date" name="date"
+                                                        placeholder="Select Date">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-6 col-sm-12">
+                                            <div class="input-block mb-3">
+                                                <label>Due Date</label>
+                                                <div class="cal-icon cal-icon-info">
+                                                    <input type="text" class="datetimepicker form-control"
+                                                        [(ngModel)]="payables.dueDate" name="dueDate"
+                                                        placeholder="Select Date">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group-item">
+                                    <div class="card-table">
+                                        <div class="card-body">
+                                            <div class="table-responsive no-pagination">
+                                                <table id="vieTab" class="table table-center table-hover datatable">
+                                                    <thead class="thead-light">
+                                                        <tr>
+                                                            <th>Product / Service</th>
+                                                            <th>Quantity</th>
+                                                            <th>H.T</th>
+                                                            <th>TVA</th>
+                                                            <th>Amount</th>
+                                                            <th class="no-sort">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let product of products; let i=index">
+                                                            <td><input type="text" class="form-control"
+                                                                    [(ngModel)]="product.productName"
+                                                                    name="=productName" placeholder="Product/Service">
+                                                            </td>
+                                                            <td><input type="number" class="form-control"
+                                                                    [(ngModel)]="product.quantity" name="=quantity"
+                                                                    (ngModelChange)="updateTTC(product)">
+                                                            </td>
+                                                            <td><input type="number" class="form-control"
+                                                                    [(ngModel)]="product.priceHT" name="=priceHT"
+                                                                    (ngModelChange)="updateTTC(product)"></td>
+
+                                                            <td><input type="number" class="form-control"
+                                                                    [(ngModel)]="product.priceTVA" name="=priceTVA"
+                                                                    (ngModelChange)="updateTTC(product)">
+                                                            </td>
+                                                            <td>{{product.priceTTC |currency}}</td>
+                                                            <td class="d-flex align-items-center">
+
+
+                                                                <a href="#" class="btn-action-icon"
+                                                                    (click)="removeItem(i)"><span><i
+                                                                            class="fe fe-trash-2"></i></span></a>
+                                                            </td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                    <button type="reset" class="btn btn-primary "
+                                                        (click)="addItem()">Add Item</button>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="input-block mb-3">
+                                                    <label>Bank Name <span class="text-danger">*</span></label>
+                                                    <input type="text" class="form-control"
+                                                        [(ngModel)]="payables.receiver.bankName" name="bankName"
+                                                        placeholder="Enter Bank Name">
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="input-block mb-3">
+                                                    <label>Account Number <span class="text-danger">*</span></label>
+                                                    <input type="number" [(ngModel)]="payables.receiver.accountNumber"
+                                                        name="accountNumber" class="form-control"
+                                                        placeholder="Enter Account Number">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="input-block mb-3">
+                                                    <label>Account Holder Name <span
+                                                            class="text-danger">*</span></label>
+                                                    <input type="text" class="form-control"
+                                                        [(ngModel)]="payables.receiver.accountHolderNamer" name="holderNamer"
+                                                        placeholder="Enter Account Holder Name">
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="input-block mb-3">
+                                                <label>Branch Name <span class="text-danger">*</span></label>
+                                                <input type="text" [(ngModel)]="payables.receiver.bankBranch" name="bankBranch"
+                                                    class="form-control" placeholder="Enter Branch Name">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="input-block mb-0">
+                                                <label>SWIFT Code <span class="text-danger">*</span></label>
+                                                <input type="number" [(ngModel)]="payables.receiver.swiftCode" name="swiftCode"
+                                                    class="form-control" placeholder="Enter SWIFT Code">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group-item border-0 p-0">
+                                    <div class="row">
+                                        <div class="col-xl-6 col-lg-12">
+                                            <div class="form-group-bank">
+                                                <div class="input-block mb-3">
+                                                    <label>Discount</label>
+                                                    <input type="text" [(ngModel)]="payables.discount" name="discount"
+                                                        class="form-control" placeholder="Enter Discount">
+                                                </div>
+                                                <div class="input-block mb-3 notes-form-group-info">
+                                                    <label>Notes</label>
+                                                    <textarea class="form-control" [(ngModel)]="payables.note"
+                                                        name="note" placeholder="Enter Notes"></textarea>
+                                                </div>
+                                                <div class="input-block mb-3 notes-form-group-info mb-0">
+                                                    <label>Terms and Conditions</label>
+                                                    <textarea class="form-control" [(ngModel)]="payables.terms"
+                                                        name="terms"
+                                                        placeholder="Enter Terms and Conditions"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-12">
+                                            <div class="form-group-bank">
+                                                <div class="invoice-total-box">
+                                                    <div class="invoice-total-inner">
+                                                        <p>Taxable Amount <span>{{payables.tottal}}</span></p>
+                                                        <p>Discount <span>{{payables.discount|currency}}</span>
+                                                        </p>
+
+                                                    </div>
+                                                    <div class="invoice-total-footer">
+                                                        <h4>Total Amount
+                                                            <span>{{payables.amount|currency}}</span>
+                                                        </h4>
+                                                    </div>
+                                                </div>
+                                                <div class="input-block mb-3">
+                                                    <label>Signature Name</label>
+                                                    <input type="text" class="form-control"
+                                                        [(ngModel)]="payables.signature" name="signature"
+                                                        placeholder="Enter Signature Name">
+                                                </div>
+                                                <div class="input-block mb-0">
+                                                    <label>Signature Image</label>
+                                                    <div
+                                                        class="input-block mb-3 service-upload service-upload-info mb-0">
+                                                        <span><i class="fe fe-upload-cloud me-1"></i>Upload
+                                                            Signature</span>
+                                                        <input type="file" multiple="" id="image_sign">
+                                                        <div id="frames"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="reset" class="btn btn-primary cancel me-2">Cancel</button>
+                                <button type="reset" class="btn btn-primary cancel me-2">Save</button>
+
+                                <input type="submit" class="btn btn-primary" value="Save & Send">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- /Page Wrapper -->
+
+
+
+
+
+
+
+</form>

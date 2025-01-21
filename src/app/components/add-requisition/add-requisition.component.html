@@ -1,0 +1,175 @@
+<form [formGroup]="puchaseRequsitionForm">
+    <!-- Page Wrapper -->
+    <div *ngIf="!loading" class="page-wrapper">
+        <div class="content container-fluid">
+            <div class="card mb-0">
+                <div class="card-body">
+                    <div class="page-header">
+                        <div class="content-page-header">
+                            <h5>Add Purchase Requisition</h5>
+                        </div>
+                    </div>
+                    <div *ngIf="loading" class="modal-dialog modal-sm">
+                        <div class="modal-content modal-filled bg-success">
+                            <div class="modal-body p-4">
+                                <div class="text-center">
+                                    <div class="col-lg-6">
+                                        <div class="spinner-border avatar-lg text-primary m-2" role="status"> </div>
+                                        <div *ngIf="loading" class="loading-spinner">Generating PDF...</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group-item border-0 mb-0">
+                                <div class="row align-item-center">
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                        <div class="input-block mb-3">
+                                            <label>PR Number</label>
+                                            <input type="text" formControlName="requisitionID" class="form-control"
+                                                placeholder="Enter PO Number">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                        <div class="input-block mb-3">
+                                            <label>PO Date</label>
+                                            <div class="cal-icon cal-icon-info">
+                                                <input type="datetime" class="datepicker form-control"
+                                                    formControlName="requestDate" placeholder="DD/MM/YYYY">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                        <div class="input-block mb-3">
+                                            <label>PO Due Date</label>
+                                            <div class="cal-icon cal-icon-info">
+                                                <input type="datetime" class="datepicker form-control"
+                                                    formControlName="dueDate" placeholder="DD/MM/YYYY">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="input-block mb-3">
+                                        <label>PR Requester</label>
+                                        <input type="text" formControlName="requesterName" class="form-control"
+                                            placeholder="Enter PO Number">
+                                    </div>
+                                </div>
+                            </div>
+                            <form #productForm="ngForm">
+                                <div class="form-group-item">
+                                    <div class="card-table">
+                                        <div class="card-body">
+                                            <div class="table-responsive no-pagination">
+                                                <table id="vieTab" class="table table-center table-hover datatable">
+                                                    <thead class="thead-light">
+                                                        <tr>
+                                                            <th>Product / Service</th>
+                                                            <th>Description</th>
+                                                            <th>Quantity</th>
+                                                            <th class="no-sort">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let product of products; let i=index">
+                                                            <td><input type="text" class="form-control"
+                                                                    [(ngModel)]="product.productName" name="productName"
+                                                                    placeholder="Product/Service">
+                                                            </td>
+                                                            <td><input type="text" class="form-control"
+                                                                    [(ngModel)]="product.description"
+                                                                    name="description">
+                                                            </td>
+                                                            <td><input type="number" class="form-control"
+                                                                    [(ngModel)]="product.quantity" name="=quantity">
+                                                            </td>
+                                                            <td class="d-flex align-items-center">
+                                                                <a href="#" class="btn-action-icon"
+                                                                    (click)="removeItem(i)"><span><i
+                                                                            class="fe fe-trash-2"></i></span></a>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <button type="reset" class="btn btn-primary "
+                                                        (click)="addItem()">Add Item</button>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="form-group-item border-0 p-0">
+                                <div class="row">
+                                    <div class="col-xl-6 col-lg-12">
+                                        <div class="form-group-bank">
+
+                                            <div class="input-block mb-3 notes-form-group-info">
+                                                <label>Justification</label>
+                                                <textarea class="form-control" formControlName="justification"
+                                                    placeholder="Enter Notes"></textarea>
+                                            </div>
+                                            <!-- <div class="input-block mb-3 notes-form-group-info mb-0">
+                                                <label>Terms and Conditions</label>
+                                                <textarea class="form-control" formControlName="discountTerms"
+                                                    placeholder="Enter Terms and Conditions"></textarea>
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-12">
+                                        <div class="form-group-bank">
+
+                                            <div class="input-block mb-3">
+                                                <label>Signature Name</label>
+                                                <input type="text" class="form-control" formControlName="approvedBy"
+                                                    placeholder="Enter Signature Name">
+                                            </div>
+                                            <div class="input-block mb-0">
+                                                <label>Signature Image</label>
+                                                <div class="input-block mb-3 service-upload service-upload-info mb-0">
+                                                    <span><i class="fe fe-upload-cloud me-1"></i>Upload Signature</span>
+                                                    <input type="file" multiple="" id="image_sign">
+                                                    <div id="frames"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="reset" class="btn btn-primary cancel me-2">Cancel</button>
+                            <button type="reset" class="btn btn-primary cancel me-2">Save</button>
+
+                            <input type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#success-alert-modal" value="Save & Send" (click)="addRequisition()">
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Wrapper -->
+    <!-- Success Alert Modal -->
+    <div  *ngIf="loading" id="success-alert-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"
+        [ngClass]="{'show': showModal}" [style.display]="showModal ? 'block' : 'none'">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content modal-filled bg-success">
+                <div class="modal-body p-4">
+                    <div class="text-center">
+                        <!-- Optional Loading Spinner -->
+                        <div class="spinner-border avatar-lg text-primary m-2" role="status"></div>
+                        <i class="dripicons-checkmark h1 text-white"></i>
+                        <h4 class="mt-2 text-white">Adding Purchase Requisition</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+</form>

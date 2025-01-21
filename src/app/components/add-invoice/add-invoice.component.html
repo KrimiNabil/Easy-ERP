@@ -1,0 +1,295 @@
+<form [formGroup]="invoiceForm">
+    <!-- Page Wrapper -->
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+            <div class="card mb-0">
+                <div class="card-body">
+                    <div class="page-header">
+                        <div class="content-page-header">
+                            <h5>Add Invoice</h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group-item border-0 mb-0">
+                                <div class="row align-item-center">
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                        <div class="input-block mb-3">
+                                            <label>Invoice Number</label>
+                                            <input type="text" formControlName="invoiceID" class="form-control"
+                                                placeholder="Enter Invoice Number">
+
+                                        </div>
+                                        <small class="text-danger"
+                                            *ngIf="invoiceForm.get('invoiceID')?.touched && invoiceForm.get('invoiceID')?.invalid ">
+                                            Invoice Number is Needed
+                                        </small>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                        <div class="input-block mb-3">
+                                            <label>Customer Name</label>
+                                            <ul class="form-group-plus css-equal-heights">
+                                                <li>
+                                                    <!-- we use [value]="user._id" to capture the user id and stor it in supplier -->
+                                                    <select formControlName="supplier"
+                                                        (change)="onCustemerChange($event)">
+                                                        <option value="">Choose Customer</option>
+                                                        <option [value]="user._id" *ngFor="let user of users">{{
+                                                            user.firstName }}</option>
+                                                    </select>
+                                                    <small class="text-danger"
+                                                        *ngIf="invoiceForm.get('supplier')?.touched && invoiceForm.get('supplier')?.invalid">
+                                                        Select A Customer
+                                                    </small>
+
+                                                </li>
+                                                <li>
+                                                    <a class="btn btn-primary form-plus-btn" href="add-customer.html">
+                                                        <i class="fe fe-plus-circle"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                        <div class="input-block mb-3">
+                                            <label>Invoice Date</label>
+                                            <div class="cal-icon cal-icon-info">
+                                                <input type="datetime" class="datepicker form-control"
+                                                    formControlName="date" placeholder="DD/MM/YYYY">
+                                            </div>
+                                        </div>
+                                        <small class="text-danger"
+                                            *ngIf="invoiceForm.get('date')?.touched && invoiceForm.get('date')?.invalid">
+                                            Enter Invoice Date
+                                        </small>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                        <div class="input-block mb-3">
+                                            <label>Due Date</label>
+                                            <div class="cal-icon cal-icon-info">
+                                                <input formControlName="dueDate" type="datepickertime"
+                                                    class=" form-control" placeholder="DD/MM/YYYY">
+                                            </div>
+                                        </div>
+                                        <small class="text-danger"
+                                            *ngIf="invoiceForm.get('dueDate')?.touched && invoiceForm.get('dueDate')?.invalid">
+                                            Enter Due Date
+                                        </small>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                        <div class="input-block mb-3">
+                                            <label>Reference PO</label>
+                                            <select id="selectPO" class="form-control" formControlName="referencePO"
+                                                (change)="onReferenceChange($event)">
+                                                <option value="" disabled>Select Option</option>
+                                                <option [value]="order._id" *ngFor="let order of orders">{{
+                                                    order.purchaseOrder }}</option>
+
+                                            </select>
+                                            <small class="text-danger"
+                                                *ngIf="invoiceForm.get('referencePO')?.touched && invoiceForm.get('referencePO')?.invalid">
+                                                Select A Purchase Order Reference
+                                            </small>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <form #productForm="ngForm">
+                                <div class="form-group-item">
+                                    <div class="card-table">
+                                        <div class="card-body">
+                                            <div class="table-responsive no-pagination">
+                                                <table id="vieTab" class="table table-center table-hover datatable">
+                                                    <thead class="thead-light">
+                                                        <tr>
+                                                            <th>Product / Service</th>
+                                                            <th>Quantity</th>
+                                                            <th>H.T</th>
+                                                            <th>TVA</th>
+                                                            <th>Amount</th>
+                                                            <th class="no-sort">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let product of products; let i=index">
+                                                            <td>
+                                                                <input type="text" class="form-control"
+                                                                    [(ngModel)]="product.productName"
+                                                                    name="=productName" placeholder="Product/Service"
+                                                                    readonly>
+                                                            </td>
+                                                            <td>
+                                                                <input type="number" class="form-control"
+                                                                    [(ngModel)]="product.quantity" name="=quantity"
+                                                                    (ngModelChange)="updateTTC(product)">
+                                                            </td>
+                                                            <td>
+                                                                <input type="number" class="form-control"
+                                                                    [(ngModel)]="product.priceHT" name="=priceHT"
+                                                                    (ngModelChange)="updateTTC(product)" readonly>
+                                                            </td>
+
+                                                            <td>
+                                                                <input type="number" class="form-control"
+                                                                    [(ngModel)]="product.priceTVA" name="=priceTVA"
+                                                                    (ngModelChange)="updateTTC(product)">
+                                                            </td>
+                                                            <td>{{product.priceTTC |currency}}</td>
+                                                            <td class="d-flex align-items-center">
+
+
+                                                                <a href="#" class="btn-action-icon"
+                                                                    (click)="removeItem(i)"><span><i
+                                                                            class="fe fe-trash-2"></i></span></a>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <button type="reset" class="btn btn-primary "
+                                                        (click)="addItem()">Add Item</button>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="input-block mb-3">
+                                                <label>Bank Name <span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" formControlName="bankName"
+                                                    placeholder="Enter Bank Name">
+                                            </div>
+                                            <small class="text-danger"
+                                                *ngIf="invoiceForm.get('bankName')?.touched && invoiceForm.get('bankName')?.invalid">
+                                                Enter Bank Name
+                                            </small>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="input-block mb-3">
+                                                <label>Account Number <span class="text-danger">*</span></label>
+                                                <input type="number" formControlName="accountNumber"
+                                                    class="form-control" placeholder="Enter Account Number">
+                                            </div>
+                                           <small class="text-danger" *ngIf="invoiceForm.get('accountNumber')?.touched && invoiceForm.get('accountNumber')?.invalid">
+                                            Enter Acount Number
+                                           </small>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="input-block mb-3">
+                                                <label>Account Holder Name <span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" formControlName="holderNamer"
+                                                    placeholder="Enter Account Holder Name">
+                                            </div>
+                                            <small class="text-danger"
+                                                *ngIf="invoiceForm.get('holderNamer')?.touched && invoiceForm.get('holderName')?.invalid">
+                                                Enter Account Holder Name
+                                            </small>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="input-block mb-3">
+                                            <label>Branch Name <span class="text-danger">*</span></label>
+                                            <input type="text" formControlName="bankBranch" class="form-control"
+                                                placeholder="Enter Branch Name">
+                                        </div>
+                                        <small class="text-danger"
+                                            *ngIf="invoiceForm.get('bankBranch')?.touched && invoiceForm.get('bankBranch')?.invalid">
+                                            Enter Branch Namze
+                                        </small>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="input-block mb-0">
+                                            <label>email <span class="text-danger">*</span></label>
+                                            <input type="email" formControlName="email" class="form-control"
+                                                placeholder="Enter Customer email">
+                                        </div>
+                                        <small class="text-danger"
+                                            *ngIf="invoiceForm.get('email')?.touched && invoiceForm.get('email')?.invalid">
+                                            Enter Customar Email
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group-item border-0 p-0">
+                                <div class="row">
+                                    <div class="col-xl-6 col-lg-12">
+                                        <div class="form-group-bank">
+                                            <div class="input-block mb-3">
+                                                <label>Discount</label>
+                                                <input type="text" formControlName="discount" class="form-control"
+                                                    placeholder="Enter Discount">
+                                            </div>
+
+                                            <div class="input-block mb-3 notes-form-group-info">
+                                                <label>Notes</label>
+                                                <textarea class="form-control" formControlName="adjustments"
+                                                    placeholder="Enter Notes"></textarea>
+                                            </div>
+                                            <div class="input-block mb-3 notes-form-group-info mb-0">
+                                                <label>Terms and Conditions</label>
+                                                <textarea class="form-control" formControlName="discountTerms"
+                                                    placeholder="Enter Terms and Conditions"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-12">
+                                        <div class="form-group-bank">
+                                            <div class="invoice-total-box">
+                                                <div class="invoice-total-inner">
+                                                    <p>Taxable Amount <span>{{calcSum(products)|currency}}</span></p>
+                                                    <p>Discount <span>{{invoiceForm.value.discount |currency}}</span>
+                                                    </p>
+
+                                                </div>
+                                                <div class="invoice-total-footer">
+                                                    <h4>Total Amount
+                                                        <span>{{calcAmount(products,invoiceForm.value.discount)|currency}}</span>
+                                                    </h4>
+                                                </div>
+                                            </div>
+                                            <div class="input-block mb-3">
+                                                <label>Signature Name</label>
+                                                <input type="text" class="form-control" formControlName="approvedBy"
+                                                    placeholder="Enter Signature Name">
+                                            </div>
+                                            <small class="text-danger"
+                                                *ngIf="invoiceForm.get('approvedBy')?.touched && invoiceForm.get('approvedBy')?.invalid">
+                                                Enter The Approval Name
+                                            </small>
+                                            <div class="input-block mb-0">
+                                                <label>Signature Image</label>
+                                                <div class="input-block mb-3 service-upload service-upload-info mb-0">
+                                                    <span><i class="fe fe-upload-cloud me-1"></i>Upload Signature</span>
+                                                    <input type="file" multiple="" id="image_sign">
+                                                    <div id="frames"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="reset" class="btn btn-primary cancel me-2">Cancel</button>
+                            <input type="submit" class="btn btn-primary"  value="Save" (click)="addInvoice()">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Wrapper -->
+
+
+
+
+
+
+</form>

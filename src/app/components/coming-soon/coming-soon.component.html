@@ -1,0 +1,17 @@
+	<!-- Main Wrapper -->
+    <div class="main-wrapper">
+        <div *ngIf="path==='/unauthorized'" class="error-box">
+            <h1 class="text-center">403</h1>
+            <h3 class="h2 mb-3"><i class="fas fa-exclamation-circle"></i> Oops! Unauthorized!</h3>
+            <p class="h4 font-weight-normal">You do not have permission to view this page.</p>
+            <a routerLink="" class="btn btn-primary">Back to Home</a>
+        </div>
+        <div  *ngIf="path ==='/coming-soon'" class="error-box">
+            <h1>Coming Soon</h1>
+            <h3 class="h2 mb-3"><i class="fas fa-exclamation-circle"></i> Oops! Page not found!</h3>
+            <p class="h4 font-weight-normal">The page you requested was not found.</p>
+            <a routerLink="" class="btn btn-primary">Back to Home</a>
+        </div>
+    
+    </div>
+    <!-- /Main Wrapper -->

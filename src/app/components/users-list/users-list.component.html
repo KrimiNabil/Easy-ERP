@@ -1,0 +1,557 @@
+<!-- Page Wrapper -->
+<div class="page-wrapper">
+   <div class="content container-fluid">
+      <!-- Page Header -->
+      <div class="page-header">
+         <div class="content-page-header">
+            <h5>Users</h5>
+            <div class="list-btn">
+               <ul class="filter-list">
+                  <li>
+                     <a class="btn btn-filters w-auto popup-toggle" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                        title="Filter"><span class="me-2"><img src="assets/img/icons/filter-icon.svg"
+                              alt="filter"></span>Filter </a>
+                  </li>
+                 
+                  <li>
+                     <a  routerLink="/signup" class="btn btn-primary"><i class="fa fa-plus-circle me-2"
+                           ></i>Add User</a>
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <!-- /Page Header -->
+
+      <!-- Search Filter -->
+      <div id="filter_inputs" class="card filter-card">
+         <div class="card-body pb-0">
+            <div class="row">
+               <div class="col-sm-6 col-md-3">
+                  <div class="input-block mb-3">
+                     <label>Name</label>
+                     <input type="text" class="form-control">
+                  </div>
+               </div>
+               <div class="col-sm-6 col-md-3">
+                  <div class="input-block mb-3">
+                     <label>Email</label>
+                     <input type="text" class="form-control">
+                  </div>
+               </div>
+               <div class="col-sm-6 col-md-3">
+                  <div class="input-block mb-3">
+                     <label>Phone</label>
+                     <input type="text" class="form-control">
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- /Search Filter -->
+
+      <div class="row">
+         <div class="col-sm-12">
+            <div class="card-table">
+               <div class="card-body">
+                  <div class="table-responsive">
+                     <table class="table table-center table-hover datatable">
+                        <thead class="thead-light">
+                           <tr>
+                              <th>#</th>
+                              <th>Name</th>
+                              <th>Phone</th>
+                              <th>Role </th>
+                              <th>Entity </th>
+                              <th>Status</th>
+                              <th class="no-sort">Actions</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr *ngFor="let user of userTab;let i=index">
+                              <td>{{i+1}}</td>
+                              <td>
+                                 <h2 class="table-avatar">
+                                    <a (click)="display(user._id)" class="avatar avatar-md me-2"><img
+                                          class="avatar-img rounded-circle" [src]="user.avatar || 'http://localhost:3000/images/avatar.png'"
+                                          alt="User Image"></a>
+                                    <a (click)="display(user._id)">{{user.firstName}} <span><span class="__cf_email__"
+                                             data-cfemail="83e9ecebedc3e6fbe2eef3efe6ade0ecee">{{user.contactDetails
+                                             .email}}</span></span></a>
+                                 </h2>
+                              </td>
+                              <td>{{user.contactDetails.phone}}</td>
+                              <td>{{user.role}}</td>
+                              <td>{{user.entityID}}</td>
+                              
+                              <td><span class="badge bg-success-light">{{user.status}}</span></td>
+                              <td class="d-flex align-items-center">
+                                 
+                                <div class="dropdown dropdown-action">
+                                    <a href="#" class=" btn-action-icon " data-bs-toggle="dropdown"
+                                       aria-expanded="false"><i class="fas fa-ellipsis-v"></i></a>
+                                    <div class="dropdown-menu dropdown-menu-end">
+                                       <ul>
+                                          <li>
+                                             <a (click)="edit(user._id)" class="dropdown-item" ><i
+                                                   class="far fa-edit me-2"></i>Edit</a>
+                                          </li>
+                                          <li>
+                                             <a (click)="delete(user._id)" class="dropdown-item" ><i
+                                                   class="far fa-trash-alt me-2"></i>Delete</a>
+                                          </li>
+                                          <li>
+                                             <a class="dropdown-item" (click)="display(user._id)"><i
+                                                   class="far fa-eye me-2"></i>View</a>
+                                          </li>
+                                          
+                                       </ul>
+                                    </div>
+                                 </div>
+                              </td>
+                           </tr>
+                           
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- /Page Wrapper -->
+
+<!-- Search -->
+<div class="toggle-sidebar">
+   <div class="sidebar-layout-filter">
+      <div class="sidebar-header">
+         <h5>Filter</h5>
+         <a href="#" class="sidebar-closes"><i class="fa-regular fa-circle-xmark"></i></a>
+      </div>
+      <div class="sidebar-body">
+         <form action="#" autocomplete="off">
+            <!-- Customer -->
+            <div class="accordion" id="accordionMain1">
+               <div class="card-header-new" id="headingOne">
+                  <h6 class="filter-title">
+                     <a href="javascript:void(0);" class="w-100" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                        aria-expanded="true" aria-controls="collapseOne">
+                        Customer
+                        <span class="float-end"><i class="fa-solid fa-chevron-down"></i></span>
+                     </a>
+                  </h6>
+               </div>
+
+               <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                  data-bs-parent="#accordionExample1">
+                  <div class="card-body-chat">
+                     <div class="row">
+                        <div class="col-md-12">
+                           <div id="checkBoxes1">
+                              <div class="form-custom">
+                                 <input type="text" class="form-control" id="member_search1" placeholder="Search here">
+                                 <span><img src="assets/img/icons/search.svg" alt="img"></span>
+                              </div>
+                              <div class="selectBox-cont">
+                                 <label class="custom_check w-100">
+                                    <input type="checkbox" name="username">
+                                    <span class="checkmark"></span> John Smith
+                                 </label>
+                                 <label class="custom_check w-100">
+                                    <input type="checkbox" name="username">
+                                    <span class="checkmark"></span> Johnny
+                                 </label>
+                                 <label class="custom_check w-100">
+                                    <input type="checkbox" name="username">
+                                    <span class="checkmark"></span> Robert
+                                 </label>
+                                 <label class="custom_check w-100">
+                                    <input type="checkbox" name="username">
+                                    <span class="checkmark"></span> Sharonda
+                                 </label>
+                                 <!-- View All -->
+                                 <div class="view-content">
+                                    <div class="viewall-One">
+                                       <label class="custom_check w-100">
+                                          <input type="checkbox" name="username">
+                                          <span class="checkmark"></span> Pricilla
+                                       </label>
+                                       <label class="custom_check w-100">
+                                          <input type="checkbox" name="username">
+                                          <span class="checkmark"></span> Randall
+                                       </label>
+                                    </div>
+                                    <div class="view-all">
+                                       <a href="javascript:void(0);" class="viewall-button-One"><span class="me-2">View
+                                             All</span><span><i class="fa fa-circle-chevron-down"></i></span></a>
+                                    </div>
+                                 </div>
+                                 <!-- /View All -->
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <!-- /Customer -->
+
+            <!-- Select Date -->
+            <div class="accordion" id="accordionMain2">
+               <div class="card-header-new" id="headingTwo">
+                  <h6 class="filter-title">
+                     <a href="javascript:void(0);" class="w-100 collapsed" data-bs-toggle="collapse"
+                        data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                        Select Date
+                        <span class="float-end"><i class="fa-solid fa-chevron-down"></i></span>
+                     </a>
+                  </h6>
+               </div>
+
+               <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample2">
+                  <div class="card-body-chat">
+                     <div class="input-block mb-3">
+                        <label class="form-control-label">From</label>
+                        <div class="cal-icon">
+                           <input type="email" class="form-control datetimepicker" placeholder="DD-MM-YYYY">
+                        </div>
+                     </div>
+                     <div class="input-block mb-3">
+                        <label class="form-control-label">To</label>
+                        <div class="cal-icon">
+                           <input type="email" class="form-control datetimepicker" placeholder="DD-MM-YYYY">
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <!-- /Select Date -->
+
+            <!-- By Status -->
+            <div class="accordion accordion-last" id="accordionMain3">
+               <div class="card-header-new" id="headingThree">
+                  <h6 class="filter-title">
+                     <a href="javascript:void(0);" class="w-100 collapsed" data-bs-toggle="collapse"
+                        data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                        By Status
+                        <span class="float-end"><i class="fa-solid fa-chevron-down"></i></span>
+                     </a>
+                  </h6>
+               </div>
+
+               <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
+                  data-bs-parent="#accordionExample3">
+                  <div class="card-body-chat">
+                     <div id="checkBoxes2">
+                        <div class="form-custom">
+                           <input type="text" class="form-control" id="member_search2" placeholder="Search here">
+                           <span><img src="assets/img/icons/search.svg" alt="img"></span>
+                        </div>
+                        <div class="selectBox-cont">
+                           <label class="custom_check w-100">
+                              <input type="checkbox" name="bystatus">
+                              <span class="checkmark"></span> Active
+                           </label>
+                           <label class="custom_check w-100">
+                              <input type="checkbox" name="bystatus">
+                              <span class="checkmark"></span> Restricted
+                           </label>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <!-- /By Status -->
+            <div class="filter-buttons">
+               <button type="submit"
+                  class="d-inline-flex align-items-center justify-content-center btn w-100 btn-primary">
+                  Apply
+               </button>
+               <button type="submit"
+                  class="d-inline-flex align-items-center justify-content-center btn w-100 btn-secondary">
+                  Reset
+               </button>
+            </div>
+         </form>
+
+      </div>
+   </div>
+</div>
+<!--/Search -->
+
+<!-- Add User -->
+<div class="modal custom-modal modal-lg fade" id="add_user" role="dialog">
+   <div class="modal-dialog modal-dialog-centered modal-md">
+      <div class="modal-content">
+         <div class="modal-header border-0 pb-0">
+            <div class="form-header modal-header-title text-start mb-0">
+               <h4 class="mb-0">Add User</h4>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+
+            </button>
+         </div>
+         <form action="#">
+            <div class="modal-body">
+               <div class="row">
+                  <div class="col-md-12">
+                     <div class="card-body">
+                        <div class="form-groups-item">
+                           <h5 class="form-title">Profile Picture</h5>
+                           <div class="profile-picture">
+                              <div class="upload-profile">
+                                 <div class="profile-img">
+                                    <img id="blah" class="avatar" src="assets/img/profiles/avatar-10.jpg"
+                                       alt="profile-img">
+                                 </div>
+                                 <div class="add-profile">
+                                    <h5>Upload a New Photo</h5>
+                                    <span>Profile-pic.jpg</span>
+                                 </div>
+                              </div>
+                              <div class="img-upload">
+                                 <a class="btn btn-primary me-2">Upload</a>
+                                 <a class="btn btn-remove">Remove</a>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="col-lg-4 col-md-6 col-sm-12">
+                                 <div class="input-block mb-3">
+                                    <label>First Name</label>
+                                    <input type="text" class="form-control" placeholder="Enter First Name">
+                                 </div>
+                              </div>
+                              <div class="col-lg-4 col-md-6 col-sm-12">
+                                 <div class="input-block mb-3">
+                                    <label>Last Name</label>
+                                    <input type="text" class="form-control" placeholder="Enter Last Name">
+                                 </div>
+                              </div>
+                              <div class="col-lg-4 col-md-6 col-sm-12">
+                                 <div class="input-block mb-3">
+                                    <label>User Name</label>
+                                    <input type="text" class="form-control" placeholder="Enter User Name">
+                                 </div>
+                              </div>
+                              <div class="col-lg-4 col-md-6 col-sm-12">
+                                 <div class="input-block mb-3">
+                                    <label>Email</label>
+                                    <input type="email" class="form-control" placeholder="Enter Email Address">
+                                 </div>
+                              </div>
+                              <div class="col-lg-4 col-md-6 col-sm-12">
+                                 <div class="input-block mb-3">
+                                    <label>Phone Number</label>
+                                    <input type="text" class="form-control" placeholder="Enter Phone Number"
+                                       name="name">
+                                 </div>
+                              </div>
+                              <div class="col-lg-4 col-md-6 col-sm-12">
+                                 <div class="input-block mb-3">
+                                    <label>Role</label>
+                                    <select class="select">
+                                       <option>Select Role</option>
+                                       <option>Role 1</option>
+                                       <option>Role 2</option>
+                                    </select>
+                                 </div>
+                              </div>
+                              <div class="col-lg-4 col-md-6 col-sm-12">
+                                 <div class="pass-group" id="3">
+                                    <div class="input-block">
+                                       <label>Password</label>
+                                       <input type="password" class="form-control pass-input" placeholder="">
+                                       <span class="toggle-password feather-eye"></span>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-lg-4 col-md-6 col-sm-12">
+                                 <div class="pass-group" id="passwordInput2">
+                                    <div class="input-block">
+                                       <label>Confirm Password</label>
+                                       <input type="password" class="form-control pass-input" placeholder="">
+                                       <span class="toggle-password feather-eye"></span>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-lg-4 col-md-6 col-sm-12">
+                                 <div class="input-block ">
+                                    <label>Status</label>
+                                    <select class="select">
+                                       <option>Select Status</option>
+                                       <option>Active</option>
+                                       <option>Inactive</option>
+                                    </select>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="modal-footer">
+               <button type="button" data-bs-dismiss="modal" class="btn btn-back cancel-btn me-2">Cancel</button>
+               <button type="submit" data-bs-dismiss="modal" class="btn btn-primary paid-continue-btn">Add User</button>
+            </div>
+         </form>
+      </div>
+   </div>
+</div>
+<!-- /Add User -->
+
+<!-- Add User -->
+<div class="modal custom-modal modal-lg fade" id="edit_user" role="dialog">
+   <div class="modal-dialog modal-dialog-centered modal-md">
+      <div class="modal-content">
+         <div class="modal-header border-0 pb-0">
+            <div class="form-header modal-header-title text-start mb-0">
+               <h4 class="mb-0">Edit User</h4>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+
+            </button>
+         </div>
+         <form action="#">
+            <div class="modal-body">
+               <div class="row">
+                  <div class="col-md-12">
+                     <div class="card-body">
+                        <div class="form-groups-item">
+                           <h5 class="form-title">Profile Picture</h5>
+                           <div class="profile-picture">
+                              <div class="upload-profile">
+                                 <div class="profile-img">
+                                    <img id="blah2" class="avatar" src="assets/img/profiles/avatar-10.jpg"
+                                       alt="profile-img">
+                                 </div>
+                                 <div class="add-profile">
+                                    <h5>Upload a New Photo</h5>
+                                    <span>Profile-pic.jpg</span>
+                                 </div>
+                              </div>
+                              <div class="img-upload">
+                                 <label class="btn btn-primary">
+                                    Upload <input type="file">
+                                 </label>
+                                 <a class="btn btn-remove">Remove</a>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="col-lg-4 col-md-6 col-sm-12">
+                                 <div class="input-block mb-3">
+                                    <label>First Name</label>
+                                    <input type="text" value="John" class="form-control" placeholder="Enter First Name">
+                                 </div>
+                              </div>
+                              <div class="col-lg-4 col-md-6 col-sm-12">
+                                 <div class="input-block mb-3">
+                                    <label>Last Name</label>
+                                    <input type="text" class="form-control" value="Smith" placeholder="Enter Last Name">
+                                 </div>
+                              </div>
+                              <div class="col-lg-4 col-md-6 col-sm-12">
+                                 <div class="input-block mb-3">
+                                    <label>User Name</label>
+                                    <input type="text" class="form-control" value="John Smith"
+                                       placeholder="Enter User Name">
+                                 </div>
+                              </div>
+                              <div class="col-lg-4 col-md-6 col-sm-12">
+                                 <div class="input-block mb-3">
+                                    <label>Email</label>
+                                    <input type="email" class="form-control" value="john@example.com"
+                                       placeholder="Enter Email Address">
+                                 </div>
+                              </div>
+                              <div class="col-lg-4 col-md-6 col-sm-12">
+                                 <div class="input-block mb-3">
+                                    <label>Phone Number</label>
+                                    <input type="text" class="form-control" value="+1 989-438-3131"
+                                       placeholder="Enter Phone Number" name="name">
+                                 </div>
+                              </div>
+                              <div class="col-lg-4 col-md-6 col-sm-12">
+                                 <div class="input-block mb-3">
+                                    <label>Role</label>
+                                    <select class="select">
+                                       <option>Select Role</option>
+                                       <option selected>Role 1</option>
+                                       <option>Role 2</option>
+                                    </select>
+                                 </div>
+                              </div>
+                              <div class="col-lg-4 col-md-6 col-sm-12">
+                                 <div class="pass-group" id="passwordInput1">
+                                    <div class="input-block">
+                                       <label>Password</label>
+                                       <input type="password" class="form-control pass-input" value="12345678"
+                                          placeholder="">
+                                       <span class="toggle-password feather-eye"></span>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-lg-4 col-md-6 col-sm-12">
+                                 <div class="pass-group" id="passwordInput4">
+                                    <div class="input-block">
+                                       <label>Confirm Password</label>
+                                       <input type="password" class="form-control pass-input" value="12345678"
+                                          placeholder="">
+                                       <span class="toggle-password feather-eye"></span>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-lg-4 col-md-6 col-sm-12">
+                                 <div class="input-block ">
+                                    <label>Status</label>
+                                    <select class="select">
+                                       <option>Select Status</option>
+                                       <option selected>Active</option>
+                                       <option>Inactive</option>
+                                    </select>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="modal-footer">
+               <button type="button" data-bs-dismiss="modal"
+                  class="btn btn-primary paid-cancel-btn me-2">Cancel</button>
+               <button type="submit" data-bs-dismiss="modal" class="btn btn-primary paid-continue-btn">Update</button>
+            </div>
+         </form>
+      </div>
+   </div>
+</div>
+<!-- /Edit User -->
+
+<!-- Delete Items Modal -->
+<div class="modal custom-modal fade" id="delete_modal" role="dialog">
+   <div class="modal-dialog modal-dialog-centered modal-md">
+      <div class="modal-content">
+         <div class="modal-body">
+            <div class="form-header">
+               <h3>Delete Users</h3>
+               <p>Are you sure want to delete?</p>
+            </div>
+            <div class="modal-btn delete-action">
+               <div class="row">
+                  <div class="col-6">
+                     <a href="#" class="btn btn-primary paid-continue-btn">Delete</a>
+                  </div>
+                  <div class="col-6">
+                     <a href="#" data-bs-dismiss="modal" class="btn btn-primary paid-cancel-btn">Cancel</a>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- /Delete Items Modal -->

@@ -1,0 +1,280 @@
+<form [formGroup]="billForm" (ngSubmit)="addBill()">
+    <!-- Page Wrapper -->
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+            <div class="card mb-0">
+                <div class="card-body">
+                    <div class="page-header">
+                        <div class="content-page-header">
+                            <h5>Add Bill</h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group-item border-0 mb-0">
+                                <div class="row align-item-center">
+                                    <!-- Bill Number -->
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                        <div class="input-block mb-3 add-products">
+                                            <label>Bill Number <span class="text-danger">*</span></label>
+                                          <input type="text" formControlName="paymentID" class="form-control"
+                                          placeholder="Enter Bill Number" >
+                                          <button type="button" class="btn btn-primary" (click)="generateProductCode()">
+                                            Generate Code
+                                          </button>
+                                          <small class="text-danger"
+                                                *ngIf="billForm.get('paymentID')?.touched && billForm.get('paymentID')?.invalid">
+                                                Bill Number is required.
+                                            </small>
+                                        </div>
+                                      </div>
+                                   
+
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                        <div class="input-block mb-3">
+                                            <label>Bill Reference <span class="text-danger">*</span></label>
+                                            <select formControlName="reference" class="form-control"
+                                                (change)="onReferenceChange($event)">
+                                                <option value="" disabled>Select Option</option>
+                                                <option [value]="elt._id" *ngFor="let elt of invoices">{{ elt.invoiceID
+                                                    }}</option>
+                                            </select>
+                                            <small class="text-danger"
+                                                *ngIf="billForm.get('reference')?.touched && billForm.get('reference')?.invalid">
+                                                Reference is required.
+                                            </small>
+                                        </div>
+                                    </div>
+                                   
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                        <div class="input-block mb-3">
+                                            <label>Customer Name</label>
+                                            <ul class="form-group-plus css-equal-heights">
+                                                <li>
+                                                    <!-- we use [value]="user._id" to capture the user id and stor it in supplier -->
+                                                    <select formControlName="supplier" class="form-control"
+                                                        (change)="onCustemerChange($event)">
+                                                        <option value="" disabled>Choose Customer</option>
+                                                        <option [value]="user._id" *ngFor="let user of users">{{
+                                                            user.firstName }}</option>
+                                                    </select>
+                                                    <!-- <small class="text-danger"
+                                                        *ngIf="invoiceForm.get('supplier')?.touched && invoiceForm.get('supplier')?.invalid">
+                                                        Select A Customer
+                                                    </small> -->
+
+                                                </li>
+                                                <li>
+                                                    <a class="btn btn-primary form-plus-btn" href="add-customer.html">
+                                                        <i class="fe fe-plus-circle"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <!-- Bill Date -->
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                        <div class="input-block mb-3">
+                                            <label>Bill Date <span class="text-danger">*</span></label>
+                                            <input type="text" formControlName="date"
+                                                class="datetimepicker form-control" placeholder="Select Date">
+                                            <small class="text-danger"
+                                                *ngIf="billForm.get('date')?.touched && billForm.get('date')?.invalid">
+                                                Bill Date is required.
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <!-- Due Date -->
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                        <div class="input-block mb-3">
+                                            <label>Due Date <span class="text-danger">*</span></label>
+                                            <input type="text" formControlName="dueDate"
+                                                class="datetimepicker form-control" placeholder="Select Due Date">
+                                            <small class="text-danger"
+                                                *ngIf="billForm.get('dueDate')?.touched && billForm.get('dueDate')?.invalid">
+                                                Due Date is required.
+                                            </small>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                            <div class="form-group-item">
+                                <form #getProduct="ngForm">
+                                    <div class="card-table">
+                                        <div class="card-body">
+                                            <div class="table-responsive no-pagination">
+                                                <table id="vieTab" class="table table-center table-hover datatable">
+                                                    <thead class="thead-light">
+                                                        <tr>
+                                                            <th>Product / Service</th>
+                                                            <th>Quantity</th>
+                                                            <th>H.T</th>
+                                                            <th>TVA</th>
+                                                            <th>Amount</th>
+                                                            <th class="no-sort">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let product of products; let i=index">
+                                                            <td><input type="text" class="form-control"
+                                                                    [(ngModel)]="product.productName" name="productName"
+                                                                    placeholder="Product/Service" readonly>
+                                                            </td>
+                                                            <td><input type="number" class="form-control"
+                                                                    [(ngModel)]="product.quantity" name="quantity" (ngModelChange)="validateQuantity(i)"
+                                                                    (ngModelChange)="updateTTC(product)" >
+                                                            </td>
+                                                            <td><input type="number" class="form-control"
+                                                                    [(ngModel)]="product.priceHT" name="priceHT"
+                                                                    readonly (ngModelChange)="updateTTC(product)"></td>
+
+                                                            <td><input type="number" class="form-control"
+                                                                    [(ngModel)]="product.priceTVA" name="priceTVA"
+                                                                    (ngModelChange)="updateTTC(product)">
+                                                            </td>
+                                                            <td>{{product.priceTTC |currency}}</td>
+                                                            <td>
+
+                                                                <a class="btn-action-icon"
+                                                                    (click)="removeItem(i)"><span><i
+                                                                            class="fe fe-trash-2"></i></span></a>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <button type="reset" class="btn btn-primary " (click)="addItem()">Add
+                                                    Item</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="input-block mb-3">
+                                                <label>Bank Name <span class="text-danger">*</span></label>
+                                                <input type="text" formControlName="bankName" class="form-control"
+                                                    placeholder="Enter Bank Name">
+                                                <small class="text-danger"
+                                                    *ngIf="billForm.get('bankName')?.touched && billForm.get('bankName')?.invalid">
+                                                    Bank Name is required.
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="input-block mb-3">
+                                                <label>Account Number <span class="text-danger">*</span></label>
+                                                <input type="number" formControlName="accountNumber"
+                                                    class="form-control" placeholder="Enter Account Number">
+                                                <small class="text-danger"
+                                                    *ngIf="billForm.get('accountNumber')?.touched && billForm.get('accountNumber')?.invalid">
+                                                    Valid Account Number is required.
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="input-block mb-3">
+                                                <label>Account Holder Name <span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" formControlName="holderNamer"
+                                                    placeholder="Enter Account Holder Name">
+                                                <small class="text-danger"
+                                                    *ngIf="billForm.get('holderNamer')?.touched && billForm.get('holderNamer')?.invalid">
+                                                    Valid Account Homlder Name is required.
+                                                </small>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="input-block mb-3">
+                                            <label>Branch Name <span class="text-danger">*</span></label>
+                                            <input type="text" formControlName="branchName" class="form-control"
+                                                placeholder="Enter Branch Name">
+                                            <small class="text-danger"
+                                                *ngIf="billForm.get('branchName')?.touched && billForm.get('branchName')?.invalid">
+                                                Valid Branch Name is required.
+                                            </small>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="input-block mb-3">
+                                            <label>SWIFT Code <span class="text-danger">*</span></label>
+                                            <input type="text" formControlName="swiftCode" class="form-control"
+                                                placeholder="Enter SWIFT Code">
+                                            <small class="text-danger"
+                                                *ngIf="billForm.get('swiftCode')?.touched && billForm.get('swiftCode')?.invalid">
+                                                SWIFT Code is required.
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group-item border-0 p-0">
+                                <div class="row">
+                                    <div class="col-xl-6 col-lg-12">
+                                        <div class="form-group-bank">
+                                            <div class="input-block mb-3">
+                                                <label>Discount</label>
+                                                <input type="text" formControlName="discount" class="form-control"
+                                                    placeholder="Enter Discount">
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-12">
+                                        <div class="form-group-bank">
+                                            <div class="invoice-total-box">
+                                                <div class="invoice-total-inner">
+                                                    <p>Taxable Amount <span>{{calcSum(products)|currency}}</span></p>
+                                                    <p>Discount <span>{{bill.discount|currency}}</span>
+                                                    </p>
+
+                                                </div>
+                                                <div class="invoice-total-footer">
+                                                    <h4>Total Amount
+                                                        <span>{{calcAmount(products,bill.discount)|currency}}</span>
+                                                    </h4>
+                                                </div>
+                                            </div>
+                                            <div class="input-block mb-3">
+                                                <label>Signature Name</label>
+                                                <input type="text" class="form-control" formControlName="signature"
+                                                    placeholder="Enter Signature Name">
+                                            </div>
+                                            <div class="input-block mb-0">
+                                                <label>Signature Image</label>
+                                                <div class="input-block mb-3 service-upload service-upload-info mb-0">
+                                                    <span><i class="fe fe-upload-cloud me-1"></i>Upload Signature</span>
+                                                    <input type="file" multiple="" id="image_sign">
+                                                    <div id="frames"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="reset" class="btn btn-primary cancel me-2">Cancel</button>
+
+
+                            <input type="submit" class="btn btn-primary" [disabled]="billForm.invalid" value="Add Bill">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Wrapper -->
+</form>

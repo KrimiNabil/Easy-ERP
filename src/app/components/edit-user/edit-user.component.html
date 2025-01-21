@@ -1,0 +1,168 @@
+<!-- Page Wrapper -->
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <div class="card mb-0">
+            <div class="card-body">
+                <!-- Page Header -->
+                <div class="page-header">
+                <div class="content-page-header">
+                    <h5>Edit User</h5>
+                </div>	
+                </div>
+                <!-- /Page Header -->				
+                <div class="row" >
+                    <div class="col-md-12">
+                        <form #updateForm="ngForm" (ngSubmit)="update()">
+                            <div class="form-group-item">
+                                <h5 class="form-title">Basic Details</h5>
+                                <div class="profile-picture">
+                                    <div class="upload-profile">
+                                        <div class="profile-img">
+                                            <img id="blah" class="avatar" [src]="user.avatar || 'assets/images/default-avatar.png'" alt="profile-img">
+                                        </div>
+                                        <div class="add-profile">
+                                            <h5>Upload a New Photo</h5>
+                                            <span>Profile-pic.jpg</span>
+                                        </div>
+                                    </div>
+                                    <div class="img-upload">
+                                        <label class="btn btn-upload">
+                                            Upload <input type="file">
+                                        </label>
+                                        <a class="btn btn-remove">Remove</a>
+                                    </div>										
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                        <div class="input-block mb-3">
+                                            <label>Name <span class="text-danger">*</span></label> 
+                                            <input type="text" class="form-control" [(ngModel)]="user.firstName" name="fName" placeholder="Enter Name">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                        <div class="input-block mb-3">
+                                            <label>Name <span class="text-danger">*</span></label> 
+                                            <input type="text" class="form-control" [(ngModel)]="user.lastName" name="lName" placeholder="Enter last Name">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                        <div class="input-block mb-3">
+                                            <label>Name <span class="text-danger">*</span></label> 
+                                            <input type="text" class="form-control" [(ngModel)]="user.userName" name="fName" placeholder="Enter User Name">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                        <div class="input-block mb-3">
+                                            <label>Email <span class="text-danger">*</span></label>
+                                            <input type="email" [(ngModel)]="user.contactDetails.email" name="email" class="form-control" placeholder="Enter Email Address">
+                                        </div>											
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                        <div class="input-block mb-3">
+                                            <label>Phone <span class="text-danger">*</span></label>
+                                            <input type="text"  class="form-control"[(ngModel)]="user.contactDetails.phone" name="phone" placeholder="Phone Number" >
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                        <div class="input-block mb-3">
+                                            <label>Gender<span class="text-danger">*</span></label>
+                                            <select class="form-control" [(ngModel)]="user.gender" name="gender">
+                                                <option>Select Gender</option>
+                                                <option value="male">Male</option>
+                                                <option value="female">Female</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="form-group-item">
+                                <div class="row align-items-end">
+                                    <div class="col-md-12">
+                                        <div class="billing-btn mb-2">
+                                            <h5 class="form-title">Billing Address</h5>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-12">
+                                                <div class="input-block mb-3">
+                                                    <label>Full Name<span class="text-danger">*</span></label>
+                                                    <input type="text" [(ngModel)]="user.contactDetails.fullName" name="fullName"
+                                                        class="form-control" placeholder="Enter Name">
+                                                </div>
+                                                <div class="input-block mb-3">
+                                                    <label>Address <span class="text-danger">*</span></label>
+                                                    <input type="text" [(ngModel)]="user.contactDetails.address" name="address"
+                                                        class="form-control" placeholder="Enter Address 1">
+                                                </div>
+                                                <div class="input-block mb-3">
+                                                    <label>Country<span class="text-danger">*</span></label>
+                                                    <input type="text" [(ngModel)]="user.contactDetails.country" name="country"
+                                                        class="form-control" placeholder="Enter Country">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-12">
+                                                <div class="input-block mb-3">
+                                                    <label>City<span class="text-danger">*</span></label>
+                                                    <input type="text" [(ngModel)]="user.contactDetails.city" name="city" class="form-control"
+                                                        placeholder="Enter City">
+                                                </div>
+                                                <div class="input-block mb-3">
+                                                    <label>State<span class="text-danger">*</span></label>
+                                                    <input type="text" [(ngModel)]="user.contactDetails.state" name="state" class="form-control"
+                                                        placeholder="Enter State">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group-customer customer-additional-form">
+                                <div class="row">
+                                    <h5 class="form-title">Bank Details</h5>
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                        <div class="input-block mb-3">
+                                            <label>Bank Name</label>
+                                            <input type="text" class="form-control" [(ngModel)]="user.bankAccountInfo.bankName" name="bankName" placeholder="Enter Bank Name">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                        <div class="input-block mb-3">
+                                            <label>Branch</label>
+                                            <input type="text" class="form-control" [(ngModel)]="user.bankAccountInfo.branchName" name="branchName" placeholder="Enter Branch Name">
+                                        </div>									
+                                    </div>
+                                    <div class="col-lg-4 col-md-12 col-sm-12">
+                                        <div class="input-block mb-3">
+                                            <label>Account Holder Name</label>
+                                            <input type="text" class="form-control" [(ngModel)]="user.bankAccountInfo.accountHolderName" name="accountHolderName" placeholder="Enter Account Holder Name">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-12 col-sm-12">
+                                        <div class="input-block mb-3">
+                                            <label>Account Number</label>
+                                            <input type="text" class="form-control" [(ngModel)]="user.bankAccountInfo.accountNumber" name="accountNumber" placeholder="Enter Account Number">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-12 col-sm-12">
+                                        <div class="input-block mb-3">
+                                            <label>SWIFT</label>
+                                            <input type="text" class="form-control"  [(ngModel)]="user.bankAccountInfo.swiftCode" name="swiftCode" placeholder="Enter SWIFT Code">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>								
+                            <div class="add-customer-btns text-end">
+                                <a routerLink="users-list"  class="btn customer-btn-cancel">Cancel</a>
+                                <input type="submit" value="Save Changes"  class="btn customer-btn-save">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+<!-- /Page Wrapper -->
+

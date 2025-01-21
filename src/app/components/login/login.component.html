@@ -1,0 +1,64 @@
+<!-- Main Wrapper -->
+<div class="main-wrapper login-body">
+    <div class="login-wrapper">
+        <div class="container">
+            <!-- <img class="img-fluid logo-dark mb-2 logo-color" src="assets/img/LOGO.png" alt="Logo"> -->
+            <!-- <img class="img-fluid logo-light mb-2" src="assets/img/logo2-white.png" alt="Logo"> -->
+            <div class="loginbox">
+                
+                <div class="login-right">
+                    <div class="login-right-wrap">
+                        <h1>Login</h1>
+                        <p class="account-subtitle">Access to our dashboard</p>
+                        
+                        <form [formGroup]="loginForm">
+                            <div class="input-block mb-3">
+                                <label class="form-control-label">Email Address</label>
+                                <input type="email" formControlName="email" class="form-control">
+                            </div>
+                            <div *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched || loginForm.controls['email'].dirty">
+                                <div *ngIf="loginForm.controls['email'].errors?.['required']"><span style="color: red;">Please entre your email</span> </div>
+                                <div *ngIf="loginForm.controls['email'].errors?.['email']"><span style="color: red;">must be email</span></div>
+                            </div>
+                            <div class="input-block mb-3">
+                                <label class="form-control-label">Password</label>
+                                <div class="pass-group">
+                                    <input type="password" formControlName="pwd"  class="form-control pass-input">
+                                    <span class="fas fa-eye toggle-password"></span>
+                                </div>
+                            </div>
+                            <div *ngIf="loginForm.controls['pwd'].invalid && loginForm.controls['pwd'].touched || loginForm.controls['pwd'].dirty">
+                                <div *ngIf="loginForm.controls['pwd'].errors?.['required']"> <span style="color: red;">Please entre your password</span></div>
+                                <div *ngIf="loginForm.controls['pwd'].errors?.['pwd']"><span style="color: red;">must be longer that 6</span></div>
+                            </div>
+                            <span style="color: red;">{{errorMessage}}</span><br>
+                            <div class="input-block mb-3">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-check custom-checkbox">
+                                            <input type="checkbox" class="form-check-input" id="cb1">
+                                            <label class="custom-control-label" for="cb1">Remember me</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 text-end">
+                                        <a class="forgot-link" href="forgot-password.html">Forgot Password ?</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-lg  btn-primary w-100" type="submit" (click)="login()">Login</button>
+                            <div class="login-or">
+                                <span class="or-line"></span>
+                                <span class="span-or">or</span>
+                            </div>
+                            <!-- /Social Login -->
+                            <div class="text-center dont-have">Don't have an account yet? <a routerLink="signup">Register</a></div>
+                            
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Main Wrapper -->

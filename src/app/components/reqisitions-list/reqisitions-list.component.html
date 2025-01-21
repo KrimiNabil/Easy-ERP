@@ -1,0 +1,155 @@
+<!-- Page Wrapper -->
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="content-page-header">
+                <h5>Quotations</h5>
+                <div class="list-btn">
+                    <ul class="filter-list">
+                        <li>
+                            <a class="btn btn-filters w-auto popup-toggle" data-bs-toggle="tooltip"
+                                data-bs-placement="bottom" title="Filter"><span class="me-2"><img
+                                        src="assets/img/icons/filter-icon.svg" alt="Filter"></span>Filter </a>
+                        </li>
+                        <li>
+                            <a class="btn-filters" href="javascript:void(0);" data-bs-toggle="tooltip"
+                                data-bs-placement="bottom" title="Settings"><span><i class="fe fe-settings"></i></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="btn btn-primary" href="add-quotations.html"><i class="fa fa-plus-circle me-2"
+                                    aria-hidden="true"></i>Create Quotation</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /Page Header -->
+
+        <!-- Search Filter -->
+        <div id="filter_inputs" class="card filter-card">
+            <div class="card-body pb-0">
+                <div class="row">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="input-block mb-3">
+                            <label>Name</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="input-block mb-3">
+                            <label>Email</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="input-block mb-3">
+                            <label>Phone</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Search Filter -->
+
+        <!-- Table -->
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card-table">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-stripped table-hover datatable">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Requsition Number</th>
+                                        <th>Requester</th>
+                                        <th>Created On</th>
+                                        <th>Due Date</th>
+                                        <th>Created By</th>
+                                        <th>Approved By</th>
+                                        <th>Status</th>
+                                        <th class="text-end">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngFor="let elt of requisitions;let i =index">
+                                    <tr>
+                                        <td>{{i+1}}</td>
+                                        <td>{{elt.requisitionID}}</td>
+                                        <td>
+                                            <h2 class="table-avatar">
+                                                <a href="profile.html" class="avatar avatar-sm me-2"><img
+                                                        class="avatar-img rounded-circle"
+                                                        src="assets/img/profiles/avatar-14.jpg" alt="User Image"></a>
+                                                <a href="profile.html">{{elt.requester.name}} <span>+1 843-443-3282</span></a>
+                                            </h2>
+                                        </td>
+                                        <td>{{elt.requestDate}}</td>
+                                        <td>{{elt.dueDate}}</td>
+                                        <td>{{elt.auditTrail.createdBy}}</td>
+                                        <td>{{elt.approval.approvers.name}}</td>
+                                        <td>
+                                           <span ></span> <a {{elt.pdf}} download>View Invoice </a>
+
+                                        </td>
+                                        <!-- <td><span class="badge bg-primary-light">{{elt.status}}</span></td> -->
+                                        <td class="d-flex align-items-center">
+                                            <div class="dropdown dropdown-action">
+                                                <a href="#" class=" btn-action-icon " data-bs-toggle="dropdown"
+                                                    aria-expanded="false"><i class="fas fa-ellipsis-v"></i></a>
+                                                <div class="dropdown-menu dropdown-menu-right quatation-dropdown">
+                                                    <ul>
+                                                        <li>
+                                                            <a class="dropdown-item" (click)="edit(elt._id)"><i
+                                                                    class="far fa-edit me-2"></i>Edit</a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="dropdown-item" (click)="delete(elt._id)"><i
+                                                                    class="far fa-trash-alt me-2"></i>Delete</a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="dropdown-item" (click)="display(elt._id)"><i
+                                                                    class="fe fe-eye me-2"></i>View</a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="dropdown-item" href="add-invoice.html"><i
+                                                                    class="fe fe-file-text me-2"></i>Convert to
+                                                                Invoice</a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                    class="fe fe-arrow-right-circle me-2"></i>Mark as
+                                                                Sent</a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                    class="fe fe-send me-2"></i>Send</a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                    class="fe fe-copy me-2"></i>Clone as Invoice</a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="dropdown-item" href="javascript:void(0);"><i
+                                                                    class="fe fe-download me-2"></i>Download</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Table -->
+
+    </div>
+</div>
+<!-- /Page Wrapper -->

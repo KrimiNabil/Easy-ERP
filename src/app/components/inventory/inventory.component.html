@@ -1,0 +1,471 @@
+<!-- Main Wrapper -->
+<div class="main-wrapper">
+    <!-- Page Wrapper -->
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="content-page-header ">
+                    <h5>Inventory</h5>
+                    <div class="list-btn">
+                        <ul class="filter-list">
+                            <li>
+                                <a class="btn btn-filters w-auto popup-toggle" data-bs-toggle="tooltip"
+                                    data-bs-placement="bottom" data-bs-original-title="filter"><span class="me-2"><img
+                                            src="assets/img/icons/filter-icon.svg" alt="filter"></span>Filter </a>
+                            </li>
+                            <li class="">
+                                <div class="dropdown dropdown-action" data-bs-toggle="tooltip" data-bs-placement="top"
+                                    data-bs-original-title="download">
+                                    <a href="#" class="btn-filters" data-bs-toggle="dropdown"
+                                        aria-expanded="false"><span><i class="fe fe-download"></i></span></a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <ul class="d-block">
+                                            <li>
+                                                <a class="d-flex align-items-center download-item"
+                                                    href="javascript:void(0);" download><i
+                                                        class="far fa-file-pdf me-2"></i>PDF</a>
+                                            </li>
+                                            <li>
+                                                <a class="d-flex align-items-center download-item"
+                                                    href="javascript:void(0);" download><i
+                                                        class="far fa-file-text me-2"></i>CVS</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <a class="btn-filters" href="javascript:void(0);" data-bs-toggle="tooltip"
+                                    data-bs-placement="bottom" data-bs-original-title="print"><span><i
+                                            class="fe fe-printer"></i></span> </a>
+                            </li>
+                            <li>
+                                <a class="btn btn-primary" routerLink="/add-product"><i class="fa fa-plus-circle me-2"
+                                        aria-hidden="true"></i>Add New</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- /Page Header -->
+            <!-- Table -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class=" card-table">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-center table-hover datatable">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Item</th>
+                                            <th>Code</th>
+                                            <th>Units</th>
+                                            <th>Quantity</th>
+                                            <th>Selling Price</th>
+                                            <th>Purchase Price</th>
+                                            <th class="no-sort">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let elt of invetories;let i = index">
+                                            <td>{{i+1}}</td>
+                                            <td>{{elt.productName}}</td>
+                                            <td>{{elt.productCode}}</td>
+                                            <td>{{elt.units}}</td>
+                                            <td>{{elt.quantity}}</td>
+                                            <td>{{elt.sellsPricePerUnit}}</td>
+                                            <td>{{elt.purchasePricePerUnit}}</td>
+                                            <td class="d-flex align-items-center">
+                                                <a href="#" class="btn btn-greys bg-history-light me-2"
+                                                    data-bs-toggle="modal" data-bs-target="#inventory_history"
+                                                    (click)="fetchInventoryHistory(elt.productCode,elt.productName)">
+                                                    <i class="far fa-eye me-1"></i> History
+                                                </a>
+                                                <a href="#" class="btn btn-greys bg-success-light me-2"
+                                                    data-bs-toggle="modal" data-bs-target="#stock_in"
+                                                    (click)="slectedItem(elt.productCode)">
+                                                    <i class="fa fa-plus-circle me-1"></i> Stock in
+                                                </a>
+                                                <a href="#" class="btn btn-greys bg-danger-light me-2"
+                                                    data-bs-toggle="modal" data-bs-target="#stock_out"
+                                                    (click)="slectedItem(elt.productCode)">
+                                                    <i class="fa fa-plus-circle me-1"></i> Stock out
+                                                </a>
+                                                <div class="dropdown dropdown-action">
+                                                    <a href="#" class=" btn-action-icon " data-bs-toggle="dropdown"
+                                                        aria-expanded="false"><i class="fas fa-ellipsis-v"></i></a>
+                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                        <ul>
+                                                            <li>
+                                                                <a class="dropdown-item" href="#" data-bs-toggle="modal"
+                                                                    data-bs-target="#edit_inventory"
+                                                                    (click)="openEditModal(elt)"><i
+                                                                        class="far fa-edit me-2"></i>Edit</a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="dropdown-item"  (click)="deleteProduct(elt._id)"><i
+                                                                        class="far fa-trash-alt me-2"></i>Delete</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /Table -->
+
+        </div>
+    </div>
+    <!-- /Page Wrapper -->
+
+    <div *ngIf="showNotification" [ngClass]="{'alert-success': success, 'alert-danger': !success}"
+        class="notification-popup">
+        {{ notificationMessage }}
+    </div>
+
+
+    <!-- Add Stock in Modal -->
+    <div class="modal custom-modal fade" id="stock_in" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-md">
+            <div class="modal-content">
+                <div class="modal-header border-0 pb-0">
+                    <div class="form-header modal-header-title text-start mb-0">
+                        <h4 class="mb-0">Add Stock In</h4>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form (ngSubmit)="makeMovement('incoming')">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12">
+                                <div class="input-block mb-3">
+                                    <label>Product Code</label>
+                                    <input type="text" [(ngModel)]="movementData.productCode" name="productCode"
+                                        class="bg-white-smoke form-control" placeholder="Enter Product Code" readonly>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12">
+                                <div class="input-block mb-3">
+                                    <label>Quantity</label>
+                                    <input type="number" [(ngModel)]="movementData.quantity" name="quantity"
+                                        class="form-control" placeholder="Enter Quantity" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12">
+                                <div class="input-block mb-3">
+                                    <label>Units</label>
+                                    <select class="form-control" [(ngModel)]="movementData.unit" name="unit">
+                                        <option value="Pieces">Pieces</option>
+                                        <option value="Inches">Inches</option>
+                                        <option value="Kilograms">Kilograms</option>
+                                        <option value="Box">Box</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12">
+                                <div class="input-block mb-3">
+                                    <label>Units</label>
+                                    <select class="form-control" [(ngModel)]="movementData.description"
+                                        name="description">
+                                        <option value="Sell">Sell</option>
+                                        <option value="Purchase">Purchase</option>
+                                        <option value="Transfer">Transfer</option>
+                                        <option value="Damage">Damage</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" data-bs-dismiss="modal"
+                            class="btn btn-back cancel-btn me-2">Cancel</button>
+                        <button type="submit" data-bs-dismiss="modal" class="btn btn-primary paid-continue-btn">Add
+                            Quantity</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Remove Stock Modal -->
+    <div class="modal custom-modal fade" id="stock_out" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-md">
+            <div class="modal-content">
+                <div class="modal-header border-0 pb-0">
+                    <div class="form-header modal-header-title text-start mb-0">
+                        <h4 class="mb-0">Remove Stock</h4>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form (ngSubmit)="makeMovement('outgoing')">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12">
+                                <div class="input-block mb-3">
+                                    <label>Product Code</label>
+                                    <input type="text" [(ngModel)]="movementData.productCode" name="productCode"
+                                        class="bg-white-smoke form-control" placeholder="Enter Product Code" readonly>
+
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12">
+                                <div class="input-block mb-3">
+                                    <label>Quantity</label>
+                                    <input type="number" [(ngModel)]="movementData.quantity" name="quantity"
+                                        class="form-control" placeholder="Enter Quantity" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12">
+                                <div class="input-block mb-3">
+                                    <label>Units</label>
+                                    <select class="form-control" [(ngModel)]="movementData.unit" name="unit">
+                                        <option value="Pieces">Pieces</option>
+                                        <option value="Inches">Inches</option>
+                                        <option value="Kilograms">Kilograms</option>
+                                        <option value="Box">Box</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12">
+                                <div class="input-block mb-3">
+                                    <label>Units</label>
+                                    <select class="form-control" [(ngModel)]="movementData.description"
+                                        name="description">
+                                        <option value="Sell">Sell</option>
+                                        <option value="Purchase">Purchase</option>
+                                        <option value="Transfer">Transfer</option>
+                                        <option value="Damage">Damage</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" data-bs-dismiss="modal"
+                            class="btn btn-back cancel-btn me-2">Cancel</button>
+                        <button type="submit" data-bs-dismiss="modal" class="btn btn-primary paid-continue-btn">Remove
+                            Quantity</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+   
+    <!-- Edit Inventory -->
+    <div class="modal custom-modal fade" id="edit_inventory" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header border-0 pb-0">
+                    <div class="form-header modal-header-title text-start mb-0">
+                        <h4 class="mb-0">Edit Inventory</h4>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form (ngSubmit)="updateInventory()">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-12">
+                                <div class="input-block mb-3">
+                                    <label>Name</label>
+                                    <input type="text" [(ngModel)]="inventoryData.productName" name="productName"
+                                        class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12">
+                                <div class="input-block mb-3">
+                                    <label>Code</label>
+                                    <input type="text" [(ngModel)]="inventoryData.productCode" name="productCode"
+                                        class="form-control" readonly>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12">
+                                <div class="input-block mb-3">
+                                    <label>Units</label>
+                                    <input type="text" [(ngModel)]="inventoryData.units" name="units"
+                                        class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12">
+                                <div class="input-block mb-3">
+                                    <label>Quantity</label>
+                                    <input type="number" [(ngModel)]="inventoryData.quantity" name="quantity"
+                                        class="form-control" readonly>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12">
+                                <div class="input-block mb-3">
+                                    <label>Selling Price</label>
+                                    <input type="number" [(ngModel)]="inventoryData.sellsPricePerUnit"
+                                        name="sellsPricePerUnit" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12">
+                                <div class="input-block mb-3">
+                                    <label>Purchase Price</label>
+                                    <input type="number" [(ngModel)]="inventoryData.purchasePricePerUnit"
+                                        name="purchasePricePerUnit" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12">
+                                <div class="input-block mb-0">
+                                    <div *ngIf="inventoryData?.supplierDetails">
+                                        <input type="text" [(ngModel)]="inventoryData.supplierDetails.name"
+                                            name="SupplierName" class="form-control">
+                                      </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12">
+                                <div class="input-block mb-0">
+                                    <div *ngIf="inventoryData?.supplierDetails">
+                                        <label>Email</label>
+                                        <input type="text" [(ngModel)]="inventoryData.supplierDetails.email" name="email"
+                                            class="form-control">
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12">
+                                <div class="input-block mb-0">
+                                    <div *ngIf="inventoryData?.supplierDetails">
+                                        <label>Phone</label>
+                                        <input type="text" [(ngModel)]="inventoryData.supplierDetails.phone" name="phone"
+                                            class="form-control">
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12">
+                                <div class="input-block mb-0">
+                                    <div *ngIf="inventoryData?.supplierDetails">
+                                        <label>Address</label>
+                                        <input type="text" [(ngModel)]="inventoryData.supplierDetails.address"
+                                            name="address" class="form-control">
+                                    </div>
+                                   
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" data-bs-dismiss="modal"
+                            class="btn btn-back cancel-btn me-2">Cancel</button>
+                        <button type="submit" class="btn btn-primary paid-continue-btn">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- /Edit Inventory -->
+
+
+    <!-- Delete Stock Modal -->
+    <div class="modal custom-modal fade" id="delete_stock" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-md">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="form-header">
+                        <h3>Delete Inventory</h3>
+                        <p>Are you sure want to delete?</p>
+                    </div>
+                    <div class="modal-btn delete-action">
+                        <div class="row">
+                            <div class="col-6">
+                                <a href="#" class="btn btn-primary paid-continue-btn">Delete</a>
+                            </div>
+                            <div class="col-6">
+                                <a href="#" data-bs-dismiss="modal" class="btn btn-primary paid-cancel-btn">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Delete Stock Modal -->
+
+    <!-- Inventory History Modal -->
+    <div class="modal custom-modal fade" id="inventory_history" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-header border-0 pb-0">
+                    <div class="form-header modal-header-title text-start mb-0">
+                        <h4 class="mb-0">Inventory History</h4>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Table -->
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card-table">
+                                <div
+                                    class="modal-card-table-head d-flex align-items-center justify-content-between mb-3">
+                                    <div class="item-name">
+                                        <h6>{{ selectedItem?.name || 'Loading...' }}</h6>
+                                        <span>Item Code: {{ selectedItem?.id }}</span>
+                                    </div>
+                                    <div class="list-btn">
+                                        <!-- Buttons for Download and Print -->
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-center table-hover datatable">
+                                            <thead class="thead-light">
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>Units</th>
+                                                    <th>Adjustment</th>
+                                                    <th>Stock After</th>
+                                                    <th class="no-sort">Reason</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Dynamic Rows -->
+                                                <tr *ngFor="let movement of inventoryMovements">
+                                                    <td>{{ movement.date | date: 'dd MMM yyyy, hh:mm a' }}</td>
+                                                    <td>{{ movement.unit }}</td>
+                                                    <td [ngClass]="{
+                                                            'text-success': movement.movementType === 'incoming',
+                                                            'text-danger': movement.movementType === 'outgoing'
+                                                        }">
+                                                        {{ movement.movementType === 'incoming' ? '+' : '-' }}{{
+                                                        movement.quantity }}
+                                                    </td>
+                                                    <td>{{ movement.movementType | titlecase }}</td>
+                                                    <td>{{ movement.description || 'N/A' }}</td>
+                                                </tr>
+                                                <!-- Show this row if no data -->
+                                                <tr *ngIf="!inventoryMovements || inventoryMovements.length === 0">
+                                                    <td colspan="5" class="text-center">No history available</td>
+                                                </tr>
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Table -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<!-- /Main Wrapper -->
